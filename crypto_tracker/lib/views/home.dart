@@ -1,4 +1,5 @@
 import 'package:crypto_tracker/core/res/color.dart';
+import 'package:crypto_tracker/views/home/history.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -36,11 +37,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       const DashboardScreen(),
       const PortfolioScreen(),
       const MarketScreen(),
+      const HistoryScreen()
     ];
     _bottomIcons = [
       Icons.home,
       Icons.account_balance_wallet,
       Icons.maps_home_work_outlined,
+      Icons.history
     ];
     _runAnimation();
     super.initState();
@@ -67,8 +70,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _selectedBottomIndex == 1
-          ? null
+      appBar: _selectedBottomIndex == 1 || _selectedBottomIndex == 3
+        ? null
           : AppBar(
               leading: Padding(
                 padding: const EdgeInsets.only(left: 10.0, top: 10, bottom: 10),

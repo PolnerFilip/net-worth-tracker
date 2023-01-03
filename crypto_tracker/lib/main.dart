@@ -1,9 +1,11 @@
 import 'package:crypto_tracker/core/res/color.dart';
 import 'package:crypto_tracker/core/routes/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
 void main() {
+  Intl.withLocale('en', () => {});
   runApp(const MyApp());
 }
 
