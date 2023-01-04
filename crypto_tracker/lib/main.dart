@@ -1,11 +1,16 @@
 import 'package:crypto_tracker/core/res/color.dart';
 import 'package:crypto_tracker/core/routes/routes.dart';
+import 'package:crypto_tracker/services/firebase_options.dart';
+import 'package:crypto_tracker/services/service_locator.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
-  Intl.withLocale('en', () => {});
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
