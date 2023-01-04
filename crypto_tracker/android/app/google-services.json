@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "329270088017",
+    "project_id": "net-worth-tracker-20884",
+    "storage_bucket": "net-worth-tracker-20884.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:329270088017:android:9f657ea78d331535034370",
+        "android_client_info": {
+          "package_name": "com.example.crypto_tracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "329270088017-u3ajnsh9orsr1q1j72d6k8o676ub601d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeMcfVrikXRqnze8BCLyqpW62_6M2hOfQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "329270088017-u3ajnsh9orsr1q1j72d6k8o676ub601d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
