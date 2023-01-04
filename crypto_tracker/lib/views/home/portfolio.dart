@@ -1,8 +1,10 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:crypto_tracker/core/res/color.dart';
-import 'package:crypto_tracker/views/home/crypto_coin.dart';
-import 'package:crypto_tracker/widgets/crypto_tile.dart';
+import 'package:crypto_tracker/widgets/portfolio/assets_section.dart';
+import 'package:crypto_tracker/widgets/portfolio/liabilities_section.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+
 
 class PortfolioScreen extends StatefulWidget {
   const PortfolioScreen({Key? key}) : super(key: key);
@@ -12,6 +14,13 @@ class PortfolioScreen extends StatefulWidget {
 }
 
 class _PortfolioScreenState extends State<PortfolioScreen> {
+  final CarouselController _carouselController = CarouselController();
+  int _current = 0;
+  final List<Widget> pages = [
+    const AssetsSection(),
+    const LiabilitiesSection()
+  ];
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -88,101 +97,61 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
                     ),
                   ),
                 ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    physics: const BouncingScrollPhysics(),
-                    child: Row(
-                      children: CryptoCoin.datas
-                          .map(
-                            (e) => Container(
-                              width: 110,
-                              height: 110,
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    width: 40,
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                      color: e.color[50],
-                                      borderRadius: BorderRadius.circular(5),
-                                    ),
-                                    child: Icon(
-                                      e.iconData,
-                                      color: e.color,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    e.coinName,
-                                    style: TextStyle(
-                                      color: Colors.grey[800],
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "\$ ${e.amount}",
-                                        style: TextStyle(
-                                          color: Colors.grey[800],
-                                          fontSize: 10,
-                                        ),
-                                      ),
-                                      Text(
-                                        "${e.stockResult.isUp ? '+' : '-'} ${e.stockResult.percentage} %",
-                                        style: TextStyle(
-                                          color: e.stockResult.isUp
-                                              ? Colors.green
-                                              : Colors.red,
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                          )
-                          .toList(),
-                    ),
-                  ),
-                ),
               ],
             ),
           ),
-          const SizedBox(
-            height: 25,
-          ),
-          const Text(
-            "Recommend to buy",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.grey.withOpacity(0.2),
+            ),
+            width: 90.w,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 8.0, top: 8.0),
+              child: Column(
+                children: [
+                  CarouselSlider(
+                      options: CarouselOptions(
+                        autoPlay: false,
+                        enlargeCenterPage: true,
+                        aspectRatio: 2.0,
+                        height: 45.h,
+                        enableInfiniteScroll: false,
+                        enlargeFactor: 3,
+                        onPageChanged: (index, reason) {
+                          setState(() {
+                            _current = index;
+                          });
+                        }),
+                      items: pages,
+                      carouselController: _carouselController),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: pages.asMap().entries.map((entry) {
+                      return GestureDetector(
+                        onTap: () => _carouselController
+                            .animateToPage(entry.key, curve: Curves.easeInBack),
+                        child: Container(
+                          width: 8.0,
+                          height: 8.0,
+                          margin: EdgeInsets.symmetric(
+                              vertical: 8.0, horizontal: 4.0),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: (Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black)
+                                  .withOpacity(
+                                      _current == entry.key ? 0.9 : 0.4)),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
             ),
           ),
-          const SizedBox(
-            height: 10,
-          ),
-          ...CryptoCoin.datas.map((e) => CryptoTile(coin: e)).toList(),
         ],
       ),
     );

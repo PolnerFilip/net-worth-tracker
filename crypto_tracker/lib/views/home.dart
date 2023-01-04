@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     _bottomIcons = [
       Icons.home,
       Icons.account_balance_wallet,
-      Icons.maps_home_work_outlined,
+      Icons.maps_home_work_outlined
     ];
     _runAnimation();
     super.initState();
