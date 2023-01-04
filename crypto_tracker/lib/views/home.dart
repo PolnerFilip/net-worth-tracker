@@ -151,7 +151,6 @@ class PositionedCircle extends StatelessWidget {
             )
           ],
           color: const Color(0xFf6d9bdd).withOpacity(0.05),
-          //     shape: BoxShape.circle,
         ),
       ),
     );
