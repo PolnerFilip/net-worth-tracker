@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:crypto_tracker/widgets/carousel_location.dart';
 import 'package:crypto_tracker/widgets/portfolio/assets_section.dart';
 import 'package:crypto_tracker/widgets/portfolio/liabilities_section.dart';
 import 'package:crypto_tracker/widgets/shared/net_worth_tile.dart';
@@ -28,7 +29,6 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
     return SafeArea(
       child: Column(
         children: [
-
           NetWorthTile(),
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
@@ -57,29 +57,10 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
                           }),
                         items: pages,
                         carouselController: _carouselController),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: pages.asMap().entries.map((entry) {
-                        return GestureDetector(
-                          onTap: () => _carouselController
-                              .animateToPage(entry.key, curve: Curves.easeInBack),
-                          child: Container(
-                            width: 8.0,
-                            height: 8.0,
-                            margin: EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 4.0),
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: (Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? Colors.white
-                                        : Colors.black)
-                                    .withOpacity(
-                                        _current == entry.key ? 0.9 : 0.4)),
-                          ),
-                        );
-                      }).toList(),
-                    ),
+                    CarouselLocation(
+                        content: pages,
+                        carouselController: _carouselController,
+                        current: _current)
                   ],
                 ),
               ),
