@@ -1,14 +1,12 @@
 import 'package:crypto_tracker/core/res/color.dart';
-import 'package:crypto_tracker/views/home/history.dart';
 import 'package:crypto_tracker/views/home/authentification_screen.dart';
-import 'package:crypto_tracker/widgets/shared/custom_app_bar_rank.dart';
+import 'package:crypto_tracker/views/home/history.dart';
 import 'package:crypto_tracker/views/home/tips.dart';
+import 'package:crypto_tracker/widgets/shared/custom_app_bar_rank.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-import 'home/dashboard.dart';
-import 'home/tips.dart';
 import 'home/portfolio.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -39,13 +37,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       vsync: this,
     );
     _screensList = [
-      const DashboardScreen(),
       const PortfolioScreen(),
       const TipsScreen(),
       const HistoryScreen()
     ];
     _bottomIcons = [
-      Icons.home,
       Icons.account_balance_wallet,
       Icons.lightbulb,
       Icons.history
@@ -82,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             return Scaffold(
               appBar: (true)
                   ? PreferredSize(
-                      preferredSize: Size.fromHeight(60.0),
+                      preferredSize: Size.fromHeight(55.0),
                       child: CustomAppBar(
                         rank: '1',
                       ))

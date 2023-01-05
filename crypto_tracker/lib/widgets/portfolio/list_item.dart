@@ -1,7 +1,6 @@
 import 'package:crypto_tracker/core/res/color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 
 class ListItem extends StatelessWidget {
   const ListItem({

@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:crypto_tracker/core/res/color.dart';
-import 'package:sizer/sizer.dart';
+import 'package:flutter/material.dart';
 
 class Tip extends StatelessWidget {
   const Tip({Key? key, required this.tipText}) : super(key: key);

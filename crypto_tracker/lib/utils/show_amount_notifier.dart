@@ -1,4 +1,3 @@
-import 'package:crypto_tracker/widgets/shared/net_worth_tile.dart';
 import 'package:flutter/cupertino.dart';
 
 class ShowNotifier extends ChangeNotifier {

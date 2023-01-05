@@ -19,7 +19,9 @@ class HistoryListView extends StatelessWidget {
         Widget separator = const SizedBox();
         int diff = calculateDifference(entries[index].timestamp);
         if (index != 0) {
-          if (entries[index].timestamp != entries[index - 1].timestamp) {
+          DateTime currentItemDate = DateTime(entries[index].timestamp.year, entries[index].timestamp.month, entries[index].timestamp.day);
+          DateTime previousItemDate = DateTime(entries[index-1].timestamp.year, entries[index-1].timestamp.month, entries[index-1].timestamp.day);
+          if (currentItemDate != previousItemDate) {
             separator = Padding(
               padding: const EdgeInsets.fromLTRB(5.0, 5, 0, 25),
               child: Text(
@@ -33,7 +35,7 @@ class HistoryListView extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(5.0, 0, 0, 25),
             child: Text(
               checkLabel(diff, entries[index]),
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
             ),
           );
         }

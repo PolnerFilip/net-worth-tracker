@@ -22,7 +22,7 @@ class AppColors {
             color: isDarkMode ? Colors.white : Colors.grey[500],
           ),
           elevation: 0,
-          foregroundColor: Colors.grey[600],
+
         ),
         brightness: Brightness.dark,
         backgroundColor: bgColor,

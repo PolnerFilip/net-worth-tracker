@@ -1,4 +1,3 @@
-import 'package:crypto_tracker/core/res/color.dart';
 import 'package:crypto_tracker/widgets/portfolio/list_item.dart';
 import 'package:crypto_tracker/widgets/portfolio/section_title.dart';
 import 'package:crypto_tracker/widgets/portfolio/toggle.dart';

@@ -19,21 +19,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      bottomOpacity: 0.0,
+      elevation: 0.0,
       backgroundColor: Colors.transparent,
       leadingWidth: 200,
-      flexibleSpace: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-              colors: [
-                AppColors.bgColor,
-                AppColors.cardColor.withOpacity(0.6)
-              ],
-              begin: const FractionalOffset(0.0, 0.0),
-              end: const FractionalOffset(1.0, 0.0),
-              stops: [0.0, 1.0],
-              tileMode: TileMode.clamp),
-        ),
-      ),
+      flexibleSpace: Container(color: AppColors.cardColor.withOpacity(0.6),),
       leading: Row(
         children: [
           Padding(
@@ -41,7 +31,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
             child: Image.asset(
               'assets/Rank.png',
               width: 25,
-              color: Colors.grey[300],
+              color: Colors.white,
             ),
           ),
           Text(

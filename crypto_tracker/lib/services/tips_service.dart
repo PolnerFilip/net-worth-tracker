@@ -1,6 +1,6 @@
 import 'dart:convert';
+
 import 'package:crypto_tracker/widgets/tips/tip.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class TipsService {

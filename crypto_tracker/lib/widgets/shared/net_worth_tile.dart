@@ -52,7 +52,7 @@ class _NetWorthTileState extends State<NetWorthTile> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: 15.h,
+        height: 20.h,
         width: 100.w,
         child: Stack(children: [
           Container(
@@ -68,52 +68,54 @@ class _NetWorthTileState extends State<NetWorthTile> {
                     AppColors.bgColor,
                     AppColors.cardColor.withOpacity(0.6)
                   ],
-                  begin: const FractionalOffset(0.0, 0.0),
-                  end: const FractionalOffset(1.0, 0.0),
-                  // begin: Alignment.topCenter,
-                  // end: Alignment.bottomCenter,
-                  stops: [0.0, 1.0],
+
+                   begin: Alignment.bottomCenter,
+                   end: Alignment.topCenter,
+                  stops: [0.0, 1],
                   tileMode: TileMode.clamp),
 
-              ),
+            ),
             child: SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Current Net Worth:",
-                    style: TextStyle(
-                      color: Colors.white,
-                      letterSpacing: 0.7,
-                      fontSize: 15
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        _netWorthDisplay,
-                        style: TextStyle(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Current Net Worth:",
+                      style: TextStyle(
                           color: Colors.white,
-                          letterSpacing: 2,
-                          fontSize: ShowNotifier().show ? 45 : 37,
-                          fontWeight: FontWeight.bold,
-                        ),
+                          letterSpacing: 0.7,
+                          fontSize: 15
                       ),
-                      IconButton(
-                          onPressed: () => navigate(context),
-                          icon: const Icon(
-                            Icons.add,
-                            size: 40,
-                          )),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          _netWorthDisplay,
+                          style: TextStyle(
+                            color: Colors.white,
+                            letterSpacing: 2,
+                            fontSize: ShowNotifier().show ? 45 : 37,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        IconButton(
+                            onPressed: () => navigate(context),
+                            icon: const Icon(
+                              Icons.add,
+                              size: 40,
+                            )),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

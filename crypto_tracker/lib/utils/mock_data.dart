@@ -5,8 +5,8 @@ import 'package:crypto_tracker/models/transaction_type.dart';
 import '../models/transaction.dart';
 
 List<TransactionModel> transactionHistory = [
-  TransactionModel(timestamp: DateTime.utc(2023, 1, 3), assetType: AssetType.CRYPTOCURRENCY, amount: 2500, transactionType: TransactionType.DEPOSIT, statementType: StatementType.ASSET),
-  TransactionModel(timestamp: DateTime.utc(2023, 1, 3), assetType:AssetType.STOCK, amount:2200, transactionType: TransactionType.WITHDRAWL, statementType: StatementType.ASSET),
+  TransactionModel(timestamp: DateTime.utc(2023, 1, 5, 2, 3, 4), assetType: AssetType.CRYPTOCURRENCY, amount: 2500, transactionType: TransactionType.DEPOSIT, statementType: StatementType.ASSET),
+  TransactionModel(timestamp: DateTime.utc(2023, 1, 5, 3, 2, 5), assetType:AssetType.STOCK, amount:2200, transactionType: TransactionType.WITHDRAWL, statementType: StatementType.ASSET),
   TransactionModel(timestamp: DateTime.utc(2023, 1, 2), assetType:AssetType.CASH,amount: 1000, transactionType:TransactionType.DEPOSIT, statementType: StatementType.ASSET),
   TransactionModel(timestamp: DateTime.utc(2023, 1, 2), assetType:AssetType.CRYPTOCURRENCY, amount:2000, transactionType:TransactionType.WITHDRAWL, statementType: StatementType.ASSET),
   TransactionModel(timestamp: DateTime.utc(2023, 1 , 2), assetType:AssetType.CASH, amount:499, transactionType:TransactionType.DEPOSIT, statementType: StatementType.ASSET),

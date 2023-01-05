@@ -1,4 +1,3 @@
-import 'package:crypto_tracker/core/res/color.dart';
 import 'package:flutter/material.dart';
 
 class CustomInputField extends StatefulWidget {

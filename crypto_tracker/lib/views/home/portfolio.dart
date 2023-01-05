@@ -6,8 +6,6 @@ import 'package:crypto_tracker/widgets/shared/net_worth_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../core/res/color.dart';
-
 
 class PortfolioScreen extends StatefulWidget {
   const PortfolioScreen({Key? key}) : super(key: key);
