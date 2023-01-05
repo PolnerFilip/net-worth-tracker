@@ -4,7 +4,7 @@ import 'package:crypto_tracker/widgets/tips/tip.dart';
 import 'package:http/http.dart' as http;
 
 class TipsService {
-  final openAIApiKey = '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';
+  final openAIApiKey = '';
   static TipsService instance = TipsService();
 
   Future<List<Tip>> getTips() async {
