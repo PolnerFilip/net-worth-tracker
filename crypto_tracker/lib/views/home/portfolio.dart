@@ -5,6 +5,8 @@ import 'package:crypto_tracker/widgets/shared/net_worth_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../core/res/color.dart';
+
 
 class PortfolioScreen extends StatefulWidget {
   const PortfolioScreen({Key? key}) : super(key: key);
@@ -23,18 +25,19 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return SafeArea(
       child: Column(
         children: [
+
           NetWorthTile(),
           Padding(
-            padding: const EdgeInsets.fromLTRB(20, 25, 20, 0),
+            padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: Colors.grey.withOpacity(0.2),
+                // color: AppColors.cardColor.withOpacity(0.2),
               ),
-              width: 90.w,
+              width: 100.w,
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 8.0, top: 8.0),
                 child: Column(

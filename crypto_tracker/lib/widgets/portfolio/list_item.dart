@@ -1,6 +1,7 @@
 import 'package:crypto_tracker/core/res/color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class ListItem extends StatelessWidget {
   const ListItem({
@@ -23,13 +24,16 @@ class ListItem extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(50),
-          color: AppColors.bgColor,
+          color: AppColors.cardColor.withOpacity(0.2)
         ),
-        height: 45,
+        height: 50,
         child: ListTile(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
           leading: leading,
-          title: Text(title),
+          title: Text(
+            title,
+            style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 15.5),
+          ),
           trailing: Text(
             trailing.toString() + (displayPercentage ? '%' : '\$'),
             style: const TextStyle(fontWeight: FontWeight.bold),

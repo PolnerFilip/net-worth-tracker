@@ -1,7 +1,7 @@
 import 'package:crypto_tracker/core/res/color.dart';
 import 'package:crypto_tracker/views/home/history.dart';
 import 'package:crypto_tracker/views/home/authentification_screen.dart';
-import 'package:crypto_tracker/widgets/app_bar/custom_app_bar_rank.dart';
+import 'package:crypto_tracker/widgets/shared/custom_app_bar_rank.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -37,8 +37,18 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       duration: const Duration(milliseconds: 1000),
       vsync: this,
     );
-    _screensList = [const DashboardScreen(), const PortfolioScreen(), const MarketScreen(), const HistoryScreen()];
-    _bottomIcons = [Icons.home, Icons.account_balance_wallet, Icons.maps_home_work_outlined, Icons.history];
+    _screensList = [
+      const DashboardScreen(),
+      const PortfolioScreen(),
+      const MarketScreen(),
+      const HistoryScreen()
+    ];
+    _bottomIcons = [
+      Icons.home,
+      Icons.account_balance_wallet,
+      Icons.maps_home_work_outlined,
+      Icons.history
+    ];
     _runAnimation();
     super.initState();
   }
@@ -69,7 +79,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Scaffold(
-              appBar: (_selectedBottomIndex !=1)? PreferredSize( preferredSize: Size.fromHeight(60.0),child: CustomAppBar(rank: '1',)): null,
+              appBar: (true)
+                  ? PreferredSize(
+                      preferredSize: Size.fromHeight(60.0),
+                      child: CustomAppBar(
+                        rank: '1',
+                      ))
+                  : null,
               body: _screensList[_selectedBottomIndex],
               bottomNavigationBar: Container(
                 height: kBottomNavigationBarHeight + 20,
@@ -95,7 +111,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               width: 50,
                               height: 50,
                               decoration: BoxDecoration(
-                                gradient: _selectedBottomIndex == index ? AppColors.getLinearGradient(Colors.indigo) : null,
+                                gradient: _selectedBottomIndex == index
+                                    ? AppColors.getLinearGradient(Colors.indigo)
+                                    : null,
                                 shape: BoxShape.circle,
                               ),
                               child: Icon(

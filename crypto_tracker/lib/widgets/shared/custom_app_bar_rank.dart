@@ -1,5 +1,8 @@
+import 'package:crypto_tracker/utils/show_amount_notifier.dart';
 import 'package:crypto_tracker/views/home/settings.dart';
 import 'package:flutter/material.dart';
+
+import '../../core/res/color.dart';
 
 class CustomAppBar extends StatefulWidget {
   CustomAppBar({Key? key, required this.rank}) : super(key: key);
@@ -18,6 +21,19 @@ class _CustomAppBarState extends State<CustomAppBar> {
     return AppBar(
       backgroundColor: Colors.transparent,
       leadingWidth: 200,
+      flexibleSpace: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              colors: [
+                AppColors.bgColor,
+                AppColors.cardColor.withOpacity(0.6)
+              ],
+              begin: const FractionalOffset(0.0, 0.0),
+              end: const FractionalOffset(1.0, 0.0),
+              stops: [0.0, 1.0],
+              tileMode: TileMode.clamp),
+        ),
+      ),
       leading: Row(
         children: [
           Padding(
@@ -40,6 +56,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
               setState(() {
                 isHidden = !isHidden;
               });
+              ShowNotifier().show = !isHidden;
+              print('ISHIDDEN' + isHidden.toString());
+              print('SHOW: ' + ShowNotifier().show.toString());
             },
             icon: (isHidden) ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility)),
         Padding(

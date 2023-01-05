@@ -1,11 +1,31 @@
+import 'package:crypto_tracker/utils/show_amount_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../core/res/color.dart';
 import '../../views/net_worth_add.dart';
 
-class NetWorthTile extends StatelessWidget {
+class NetWorthTile extends StatefulWidget {
   const NetWorthTile({Key? key}) : super(key: key);
+
+  @override
+  State<NetWorthTile> createState() => _NetWorthTileState();
+}
+
+class _NetWorthTileState extends State<NetWorthTile> {
+  final String _netWorth = "231.223";
+  String _netWorthDisplay = "\$231.223";
+  ShowNotifier showNotifier = ShowNotifier();
+
+  @override
+  void initState() {
+    hideShow();
+    showNotifier.addListener(() => mounted
+      ? setState(() {hideShow();})
+      : null
+    );
+    super.initState();
+  }
 
   void navigate(BuildContext context) {
     Navigator.push(
@@ -14,84 +34,85 @@ class NetWorthTile extends StatelessWidget {
     );
   }
 
+  void hideShow() {
+    if (ShowNotifier().show) {
+      _netWorthDisplay = '\$$_netWorth';
+    } else {
+      String char = '\u2731';
+      _netWorthDisplay = char * 6;
+    }
+  }
+
+  @override
+  void dispose() {
+    showNotifier.removeListener(() { });
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: 30.h,
+        height: 15.h,
         width: 100.w,
         child: Stack(children: [
           Container(
             height: 30.h,
+            // decoration: BoxDecoration(
+            //     color: AppColors.cardColor.withOpacity(0.6),
+            //     borderRadius: const BorderRadius.vertical(
+            //       bottom: Radius.circular(10),
+            //     )),
             decoration: BoxDecoration(
-                gradient: AppColors.getDarkLinearGradient(Colors.indigo),
-                borderRadius: const BorderRadius.vertical(
-                  bottom: Radius.circular(40),
-                )),
+              gradient: LinearGradient(
+                  colors: [
+                    AppColors.bgColor,
+                    AppColors.cardColor.withOpacity(0.6)
+                  ],
+                  begin: const FractionalOffset(0.0, 0.0),
+                  end: const FractionalOffset(1.0, 0.0),
+                  // begin: Alignment.topCenter,
+                  // end: Alignment.bottomCenter,
+                  stops: [0.0, 1.0],
+                  tileMode: TileMode.clamp),
+
+              ),
             child: SafeArea(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text(
-                    "Current Net Worth",
+                    "Current Net Worth:",
                     style: TextStyle(
                       color: Colors.white,
-                      letterSpacing: 0.8,
+                      letterSpacing: 0.7,
+                      fontSize: 15
                     ),
-                  ),
-                  const SizedBox(
-                    height: 15,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        "\$ 231.223",
+                      Text(
+                        _netWorthDisplay,
                         style: TextStyle(
                           color: Colors.white,
-                          letterSpacing: 1.2,
-                          fontSize: 28,
+                          letterSpacing: 2,
+                          fontSize: ShowNotifier().show ? 45 : 37,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       IconButton(
                           onPressed: () => navigate(context),
                           icon: const Icon(
-                            Icons.add_circle_outline_outlined,
-                            size: 26,
-                          ))
+                            Icons.add,
+                            size: 40,
+                          )),
                     ],
                   ),
                   const SizedBox(
                     height: 15,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(2),
-                        decoration: BoxDecoration(
-                          border:
-                              Border.all(color: Colors.white.withOpacity(0.4)),
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: Icon(
-                          Icons.arrow_upward_rounded,
-                          size: 14,
-                          color: Colors.white.withOpacity(0.6),
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Text(
-                        "\$ 5.10",
-                        style: TextStyle(
-                          color: Colors.white.withOpacity(0.6),
-                          letterSpacing: 0.6,
-                        ),
-                      ),
-                    ],
-                  )
                 ],
               ),
             ),

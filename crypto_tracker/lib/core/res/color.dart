@@ -11,7 +11,7 @@ class AppColors {
   static Color get cardColor => const Color(0xFF3A498B);
   // Color(0xFF3AF98B)
   //   const Color(0xFF3A498B)
-  //const Color(0xFF090D20)
+  // const Color(0xFF090D20)
 
   static ThemeData get getTheme => ThemeData(
         primaryColor: primaryColor,

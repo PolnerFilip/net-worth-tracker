@@ -3,6 +3,7 @@ import 'package:crypto_tracker/models/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../core/res/color.dart';
 import '../../models/transaction_type.dart';
 
 class HistoryListItem extends StatelessWidget {
@@ -18,7 +19,8 @@ class HistoryListItem extends StatelessWidget {
         height: 70,
         child: DecoratedBox(
           decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.2),
+              color: AppColors.cardColor.withOpacity(0.2),
+              //color: Colors.grey.withOpacity(0.2),
               border: Border.all(color: Colors.grey.withOpacity(0.35)),
               borderRadius: const BorderRadius.all(Radius.circular(15))),
           child: Padding(
