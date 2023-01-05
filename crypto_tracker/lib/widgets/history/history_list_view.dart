@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 class HistoryListView extends StatelessWidget {
   const HistoryListView({Key? key, required this.entries}) : super(key: key);
 
-  final List<Transaction> entries;
+  final List<TransactionModel> entries;
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +17,9 @@ class HistoryListView extends StatelessWidget {
       itemCount: entries.length,
       itemBuilder: (context, index) {
         Widget separator = const SizedBox();
-        int diff = calculateDifference(entries[index].createdAt);
+        int diff = calculateDifference(entries[index].timestamp);
         if (index != 0) {
-          if (entries[index].createdAt != entries[index - 1].createdAt) {
+          if (entries[index].timestamp != entries[index - 1].timestamp) {
             separator = Padding(
               padding: const EdgeInsets.fromLTRB(5.0, 5, 0, 25),
               child: Text(
@@ -51,14 +51,14 @@ int calculateDifference(DateTime date) {
   return DateTime(date.year, date.month, date.day).difference(DateTime(now.year, now.month, now.day)).inDays;
 }
 
-String checkLabel(int diff, Transaction item) {
+String checkLabel(int diff, TransactionModel item) {
   String label = '';
   if (diff == 0) {
     label = 'Today';
   } else if (diff == -1) {
     label = 'Yesterday';
   } else {
-    label = DateFormat("MMM d, y").format(item.createdAt);
+    label = DateFormat("MMM d, y").format(item.timestamp);
   }
   return label;
 }

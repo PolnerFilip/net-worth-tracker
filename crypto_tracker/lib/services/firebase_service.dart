@@ -3,9 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 
 class FirebaseService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final FirebaseDatabase _database = FirebaseDatabase.instance;
 
-  // --- sign in, up and out
   Future<String> signIn(String email, String password) async {
     UserCredential result = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
     User? user = result.user;

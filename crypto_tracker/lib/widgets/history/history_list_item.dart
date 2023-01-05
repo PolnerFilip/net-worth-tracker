@@ -8,7 +8,7 @@ import '../../models/transaction_type.dart';
 class HistoryListItem extends StatelessWidget {
   const HistoryListItem({Key? key, required this.entry}) : super(key: key);
 
-  final Transaction entry;
+  final TransactionModel entry;
 
   @override
   Widget build(BuildContext context) {
@@ -29,16 +29,16 @@ class HistoryListItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Padding(padding: const EdgeInsets.only(right: 15.0), child: getImage(entry.type)),
+                    Padding(padding: const EdgeInsets.only(right: 15.0), child: getImage(entry.assetType)),
                     Text(
-                      entry.type.name.toString(),
+                      entry.assetType.name.toString(),
                       style: const TextStyle(fontWeight: FontWeight.normal, letterSpacing: 0.7, fontSize: 15.5),
                     )
                   ],
                 ),
               ),
               Text(
-                (entry.transactionType == TransactionType.DEPOSIT) ? '+ ${NumberFormat.simpleCurrency().format(entry.value)}' : '- ${NumberFormat.simpleCurrency().format(entry.value)}',
+                (entry.transactionType == TransactionType.DEPOSIT) ? '+ ${NumberFormat.simpleCurrency().format(entry.amount)}' : '- ${NumberFormat.simpleCurrency().format(entry.amount)}',
                 style: TextStyle(fontSize: 14, color: (entry.transactionType == TransactionType.DEPOSIT) ? Colors.greenAccent : Colors.redAccent),
               )
             ]),
