@@ -20,8 +20,6 @@ class HistoryListItem extends StatelessWidget {
         child: DecoratedBox(
           decoration: BoxDecoration(
               color: AppColors.cardColor.withOpacity(0.2),
-              //color: Colors.grey.withOpacity(0.2),
-              border: Border.all(color: Colors.grey.withOpacity(0.35)),
               borderRadius: const BorderRadius.all(Radius.circular(15))),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
