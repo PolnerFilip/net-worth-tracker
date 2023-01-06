@@ -10,21 +10,23 @@ import '../network/repositories/user_repository.dart';
 
 class NetWorthObserver with ChangeNotifier {
   NetWorthObserver._privateConstructor();
+
   static final NetWorthObserver instance = NetWorthObserver._privateConstructor();
 
   final UserRepository userRepository = serviceLocator<UserRepository>();
   int netWorth = 0;
 
-  void getNetWorth() {
-    fetchNetWorth();
-    notifyListeners();
+  void getNetWorth() async {
+    fetchNetWorth().then((value) => notifyListeners());
+
   }
 
-  void fetchNetWorth() async {
+  Future<void> fetchNetWorth() async {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       UserModel userModel = await userRepository.getUserWithTransactions(user.email ?? '');
       netWorth = _calculateNetWorth(userModel.transactions ?? []);
+
     }
   }
 

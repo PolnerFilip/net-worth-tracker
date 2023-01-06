@@ -20,7 +20,7 @@ class _NetWorthTileState extends State<NetWorthTile> {
   @override
   void initState() {
     NetWorthObserver.instance.addListener(() {
-      (mounted) ? setState(() {}) : null;
+      setState(() {hideShow();});
     });
     hideShow();
     showNotifier.addListener(() => mounted
@@ -28,6 +28,7 @@ class _NetWorthTileState extends State<NetWorthTile> {
       : null
     );
     super.initState();
+
   }
 
   void navigate(BuildContext context) {

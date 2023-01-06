@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:crypto_tracker/widgets/tips/tip.dart';
 import 'package:http/http.dart' as http;
-import 'package:crypto_tracker/services/options.dart';
 
 class TipsService {
   final openAIApiKey = '';
