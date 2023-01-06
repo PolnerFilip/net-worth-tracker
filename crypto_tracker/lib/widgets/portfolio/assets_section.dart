@@ -71,10 +71,10 @@ class _AssetsSectionState extends State<AssetsSection> {
         ),
           if (displayPercentage)
             for (MapEntry<String, String> entry in _specificAssetPercentages.entries)
-              ListItem(leading: Icon(CustomIcons.getAssetIcon(entry.key)), title: entry.key, trailing: entry.value, displayPercentage: displayPercentage)
+              ListItem(leading: Icon(CustomIcons.getAssetIcon(entry.key)), title: entry.key, trailing: entry.value + (ShowNotifier().show ? '%' : ''), displayPercentage: displayPercentage)
           else
             for (MapEntry<String, String> entry in _specificAssetAmounts.entries)
-              ListItem(leading: Icon(CustomIcons.getAssetIcon(entry.key)), title: entry.key, trailing: entry.value, displayPercentage: displayPercentage),
+              ListItem(leading: Icon(CustomIcons.getAssetIcon(entry.key)), title: entry.key, trailing: (ShowNotifier().show ? '\$' : '') + entry.value, displayPercentage: displayPercentage),
         const SizedBox(height: 20),
         Toggle(callback: toggleDisplayPercentage),
       ],

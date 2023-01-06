@@ -1,3 +1,4 @@
+import 'package:crypto_tracker/core/res/color.dart';
 import 'package:flutter/material.dart';
 
 class Toggle extends StatefulWidget {
@@ -34,11 +35,13 @@ class _ToggleState extends State<Toggle> {
           });
         },
         borderRadius: const BorderRadius.all(Radius.circular(50)),
+        borderColor: AppColors.bgColor,
+        fillColor: AppColors.cardColor.withOpacity(0.2),
+        color: AppColors.cardColor.withOpacity(0.5),
+        selectedBorderColor: AppColors.bgColor,
         selectedColor: Colors.white,
-        color: Colors.blue[400],
         isSelected: _selected,
         children: icons,
-
       ),
     );
   }

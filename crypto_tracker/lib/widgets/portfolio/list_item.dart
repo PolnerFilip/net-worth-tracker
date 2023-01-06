@@ -34,7 +34,7 @@ class ListItem extends StatelessWidget {
             style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 15.5),
           ),
           trailing: Text(
-              (displayPercentage ? '' : '\$')+ trailing.toString() + (displayPercentage ? '%' : ''),
+              trailing.toString(),
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           dense: true,

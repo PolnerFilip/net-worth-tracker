@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:crypto_tracker/core/res/color.dart';
 
 class Toggle extends StatefulWidget {
   const Toggle({Key? key, required this.callback}) : super(key: key);
@@ -32,8 +33,11 @@ class _ToggleState extends State<Toggle> {
             });
           },
           borderRadius: const BorderRadius.all(Radius.circular(50)),
+          borderColor: AppColors.bgColor,
+          fillColor: AppColors.cardColor.withOpacity(0.2),
+          color: AppColors.cardColor.withOpacity(1),
+          selectedBorderColor: AppColors.bgColor,
           selectedColor: Colors.white,
-          color: Colors.blue[400],
           isSelected: _selected,
           children: pages,
           constraints: BoxConstraints(minWidth: (40.w))),
