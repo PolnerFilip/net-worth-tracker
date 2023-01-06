@@ -23,7 +23,7 @@ class Tip extends StatelessWidget {
               Container(
                 child: Text(
                   tipText,
-                  style: const TextStyle(fontSize: 14, color: Colors.white),
+                  style: const TextStyle(fontSize: 18, color: Colors.white),
                 ),
                 margin: const EdgeInsets.only(top: 40),
               )
