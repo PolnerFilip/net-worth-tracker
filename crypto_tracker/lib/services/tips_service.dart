@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 class TipsService {
   final openAIApiKey = '';
   static TipsService instance = TipsService();
+  static List<Tip> persistentTips = [];
 
   Future<List<Tip>> getTips() async {
     const prompt =
@@ -39,6 +40,9 @@ class TipsService {
         tips.add(Tip(tipText: tip));
       }
     });
+
+    persistentTips = tips;
+
     return tips;
 
     // final completions = await openAI.completion(
