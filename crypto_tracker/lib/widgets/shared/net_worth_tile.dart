@@ -40,7 +40,7 @@ class _NetWorthTileState extends State<NetWorthTile> {
       _netWorthDisplay = '\$${NetWorthObserver.instance.netWorth}';
     } else {
       String char = '\u2731';
-      _netWorthDisplay = char * 6;
+      _netWorthDisplay = char * 4;
     }
   }
 

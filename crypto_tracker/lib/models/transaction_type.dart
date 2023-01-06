@@ -1,5 +1,5 @@
 enum  TransactionType {
-  DEPOSIT, WITHDRAWL
+  DEPOSIT, WITHDRAWAL
 }
 
 extension TransactionTypeExtension on TransactionType {
@@ -7,7 +7,7 @@ extension TransactionTypeExtension on TransactionType {
     switch (this) {
       case TransactionType.DEPOSIT:
         return "Deposit";
-      case TransactionType.WITHDRAWL:
+      case TransactionType.WITHDRAWAL:
         return "Withdrawal";
       default:
         return null;

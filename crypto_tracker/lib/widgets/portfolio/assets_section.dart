@@ -1,8 +1,13 @@
+import 'dart:collection';
+
+import 'package:crypto_tracker/services/asset_observer.dart';
 import 'package:crypto_tracker/widgets/portfolio/list_item.dart';
 import 'package:crypto_tracker/widgets/portfolio/section_title.dart';
 import 'package:crypto_tracker/widgets/portfolio/toggle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:crypto_tracker/utils/show_amount_notifier.dart';
+import 'package:crypto_tracker/core/res/icons.dart';
 
 class AssetsSection extends StatefulWidget {
   const AssetsSection({Key? key}) : super(key: key);
@@ -13,12 +18,47 @@ class AssetsSection extends StatefulWidget {
 
 class _AssetsSectionState extends State<AssetsSection> {
   bool displayPercentage = true;
+  String _assetSum =  "\$";
+  Map<String, String> _specificAssetAmounts = HashMap();
+  Map<String, String> _specificAssetPercentages = HashMap();
+  ShowNotifier showNotifier = ShowNotifier();
 
-  void callback(int index) {
+  @override
+  void initState() {
+    AssetObserver.instance.addListener(() {
+      setState(() {hideShow();});
+    });
+    hideShow();
+    showNotifier.addListener(() => mounted
+        ? setState(() {hideShow();})
+        : null
+    );
+    super.initState();
+  }
+
+  void hideShow() {
+    if (ShowNotifier().show) {
+      _assetSum = '\$${AssetObserver.instance.assetSum}';
+      _specificAssetAmounts = AssetObserver.instance.specificAssetAmounts.map((key, value) => MapEntry(key, value.toString()));
+      _specificAssetPercentages = AssetObserver.instance.specificAssetPercentages.map((key, value) => MapEntry(key, value.toString()));
+    } else {
+      String char = '\u2731';
+      _assetSum = char * 4;
+      _specificAssetAmounts = AssetObserver.instance.specificAssetAmounts.map((key, value) => MapEntry(key, char * 4));
+      _specificAssetPercentages = AssetObserver.instance.specificAssetPercentages.map((key, value) => MapEntry(key, char * 4));
+    }
+  }
+
+  @override
+  void dispose() {
+    showNotifier.removeListener(() => setState(() {hideShow();}));
+    super.dispose();
+  }
+
+  void toggleDisplayPercentage(int index) {
     setState(() {
       displayPercentage = index == 0 ? true : false;
     });
-    print(index);
   }
 
   @override
@@ -27,34 +67,16 @@ class _AssetsSectionState extends State<AssetsSection> {
       children: [
         SectionTitle(
           leading: 'Assets',
-          trailing: 40832
+          trailing: _assetSum
         ),
-        ListItem(
-          leading: Icon(Icons.currency_bitcoin),
-          title: 'Cryptocurrency',
-          trailing: 49,
-          displayPercentage: displayPercentage,
-        ),
-        ListItem(
-          leading: Icon(Icons.money_sharp),
-          title: 'Cash',
-          trailing: 21,
-          displayPercentage: displayPercentage,
-        ),
-        ListItem(
-          leading: Icon(Icons.house_sharp),
-          title: 'Real-Estate',
-          trailing: 49,
-          displayPercentage: displayPercentage,
-        ),
-        ListItem(
-          leading: Icon(Icons.show_chart),
-          title: 'Stocks',
-          trailing: 12,
-          displayPercentage: displayPercentage,
-        ),
-        SizedBox(height: 20),
-        Toggle(callback: callback),
+          if (displayPercentage)
+            for (MapEntry<String, String> entry in _specificAssetPercentages.entries)
+              ListItem(leading: Icon(CustomIcons.getAssetIcon(entry.key)), title: entry.key, trailing: entry.value, displayPercentage: displayPercentage)
+          else
+            for (MapEntry<String, String> entry in _specificAssetAmounts.entries)
+              ListItem(leading: Icon(CustomIcons.getAssetIcon(entry.key)), title: entry.key, trailing: entry.value, displayPercentage: displayPercentage),
+        const SizedBox(height: 20),
+        Toggle(callback: toggleDisplayPercentage),
       ],
     );
   }

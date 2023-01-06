@@ -13,7 +13,7 @@ class ListItem extends StatelessWidget {
 
   final Widget? leading;
   final String title;
-  final int trailing;
+  final String trailing;
   final bool displayPercentage;
 
   @override
@@ -34,7 +34,7 @@ class ListItem extends StatelessWidget {
             style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 15.5),
           ),
           trailing: Text(
-            trailing.toString() + (displayPercentage ? '%' : '\$'),
+              (displayPercentage ? '' : '\$')+ trailing.toString() + (displayPercentage ? '%' : ''),
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           dense: true,

@@ -1,5 +1,7 @@
 import 'package:crypto_tracker/core/res/color.dart';
 import 'package:crypto_tracker/network/repositories/user_repository.dart';
+import 'package:crypto_tracker/services/asset_observer.dart';
+import 'package:crypto_tracker/services/liability_observer.dart';
 import 'package:crypto_tracker/services/service_locator.dart';
 import 'package:crypto_tracker/services/net_worth_observer.dart';
 import 'package:crypto_tracker/views/home/authentification_screen.dart';
@@ -27,6 +29,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     NetWorthObserver.instance.getNetWorth();
+    AssetObserver.instance.getAssets();
+    LiabilityObserver.instance.getLiabilities();
     _controller = AnimationController(
       duration: const Duration(milliseconds: 1000),
       vsync: this,

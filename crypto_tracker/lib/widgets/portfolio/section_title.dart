@@ -9,7 +9,7 @@ class SectionTitle extends StatelessWidget {
   }) : super(key: key);
 
   final String leading;
-  final int trailing;
+  final String trailing;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class SectionTitle extends StatelessWidget {
         leading,
         style: const TextStyle(fontWeight: FontWeight.bold),),
       trailing: Text(
-        '\$' + trailing.toString(),
+        trailing.toString(),
         style: const TextStyle(fontWeight: FontWeight.bold),),
     );
   }
