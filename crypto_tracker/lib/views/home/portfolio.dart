@@ -27,7 +27,7 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
     return SafeArea(
       child: Column(
         children: [
-          NetWorthTile(),
+          const NetWorthTile(),
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
             child: Container(

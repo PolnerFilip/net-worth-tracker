@@ -37,11 +37,11 @@ class Settings extends StatelessWidget {
             onPressed: () async {
               await transactionRepository.createTransaction(
                   TransactionModel(
-                      timestamp: DateTime(2023, 1, 5, 3 ,5,6),
+                      timestamp: DateTime(2023, 1, 4, 3 ,5,6),
                       assetType: AssetType.CASH,
-                      amount: 2000,
+                      amount: 200,
                       transactionType: TransactionType.DEPOSIT,
-                      statementType: StatementType.ASSET),
+                      statementType: StatementType.LIABILITY),
                   UserModel(id: 'gZWKzG1FQd7v8fHca0uC', email: ''));
             },
             child: const Text('Insert Transaction'))

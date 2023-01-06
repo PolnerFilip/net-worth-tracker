@@ -72,6 +72,13 @@
             </list>
           </value>
         </entry>
+        <entry key="countup">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../../../../_DEV/flutter/.pub-cache/hosted/pub.dartlang.org/countup-0.1.4/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="crypto">
           <value>
             <list>
@@ -379,6 +386,7 @@
       <root url="file://$PROJECT_DIR$/../../../../_DEV/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore_platform_interface-5.10.1/lib" />
       <root url="file://$PROJECT_DIR$/../../../../_DEV/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore_web-3.2.1/lib" />
       <root url="file://$PROJECT_DIR$/../../../../_DEV/flutter/.pub-cache/hosted/pub.dartlang.org/collection-1.16.0/lib" />
+      <root url="file://$PROJECT_DIR$/../../../../_DEV/flutter/.pub-cache/hosted/pub.dartlang.org/countup-0.1.4/lib" />
       <root url="file://$PROJECT_DIR$/../../../../_DEV/flutter/.pub-cache/hosted/pub.dartlang.org/crypto-3.0.1/lib" />
       <root url="file://$PROJECT_DIR$/../../../../_DEV/flutter/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-1.0.4/lib" />
       <root url="file://$PROJECT_DIR$/../../../../_DEV/flutter/.pub-cache/hosted/pub.dartlang.org/dropdown_button2-1.4.0/lib" />

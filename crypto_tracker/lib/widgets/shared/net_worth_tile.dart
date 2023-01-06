@@ -1,3 +1,4 @@
+import 'package:crypto_tracker/services/net_worth_observer.dart';
 import 'package:crypto_tracker/utils/show_amount_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -13,30 +14,30 @@ class NetWorthTile extends StatefulWidget {
 }
 
 class _NetWorthTileState extends State<NetWorthTile> {
-  final String _netWorth = "231.223";
-  String _netWorthDisplay = "\$231.223";
+  String _netWorthDisplay = "\$";
   ShowNotifier showNotifier = ShowNotifier();
 
   @override
   void initState() {
+    NetWorthObserver.instance.addListener(() {
+      (mounted) ? setState(() {}) : null;
+    });
     hideShow();
     showNotifier.addListener(() => mounted
-      ? setState(() {hideShow();})
-      : null
-    );
+        ? setState(() {
+            hideShow();
+          })
+        : null);
     super.initState();
   }
 
   void navigate(BuildContext context) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const NetWorthAdd())
-    );
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const NetWorthAdd()));
   }
 
   void hideShow() {
     if (ShowNotifier().show) {
-      _netWorthDisplay = '\$$_netWorth';
+      _netWorthDisplay = '\$${NetWorthObserver.instance.netWorth}';
     } else {
       String char = '\u2731';
       _netWorthDisplay = char * 6;
@@ -45,7 +46,7 @@ class _NetWorthTileState extends State<NetWorthTile> {
 
   @override
   void dispose() {
-    showNotifier.removeListener(() { });
+    showNotifier.removeListener(() {});
     super.dispose();
   }
 
@@ -64,16 +65,11 @@ class _NetWorthTileState extends State<NetWorthTile> {
             //     )),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                  colors: [
-                    AppColors.bgColor,
-                    AppColors.cardColor.withOpacity(0.6)
-                  ],
-
-                   begin: Alignment.bottomCenter,
-                   end: Alignment.topCenter,
+                  colors: [AppColors.bgColor, AppColors.cardColor.withOpacity(0.6)],
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
                   stops: [0.0, 1],
                   tileMode: TileMode.clamp),
-
             ),
             child: SafeArea(
               child: Padding(
@@ -84,25 +80,21 @@ class _NetWorthTileState extends State<NetWorthTile> {
                   children: [
                     const Text(
                       "Current Net Worth:",
-                      style: TextStyle(
-                          color: Colors.white,
-                          letterSpacing: 0.7,
-                          fontSize: 15
-                      ),
+                      style: TextStyle(color: Colors.white, letterSpacing: 0.7, fontSize: 15),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          _netWorthDisplay,
-                          style: TextStyle(
-                            color: Colors.white,
-                            letterSpacing: 2,
-                            fontSize: ShowNotifier().show ? 45 : 37,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                                _netWorthDisplay,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  letterSpacing: 2,
+                                  fontSize: ShowNotifier().show ? 45 : 37,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                         IconButton(
                             onPressed: () => navigate(context),
                             icon: const Icon(

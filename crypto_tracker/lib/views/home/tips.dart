@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:crypto_tracker/services/tips_service.dart';
 import 'package:crypto_tracker/widgets/carousel_location.dart';
-import 'package:crypto_tracker/widgets/shared/net_worth_tile.dart';
 import 'package:crypto_tracker/widgets/tips/tip.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
