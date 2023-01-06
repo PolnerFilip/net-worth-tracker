@@ -1,3 +1,4 @@
+import 'package:crypto_tracker/models/statement_type.dart';
 import 'package:crypto_tracker/widgets/net_worth_add/form/add_form.dart';
 import 'package:crypto_tracker/widgets/net_worth_add/toggle.dart';
 import 'package:crypto_tracker/widgets/net_worth_add/top_bar.dart';
@@ -13,10 +14,13 @@ class NetWorthAdd extends StatefulWidget {
 class _NetWorthAddState extends State<NetWorthAdd> {
   final List<bool> _selected = <bool>[true, false];
   bool vertical = false;
-  final List<Widget> pages = <Widget>[
-    const Text('Asset'),
-    const Text('Liability'),
-  ];
+  StatementType _statementType = StatementType.ASSET;
+
+  void _setStatementType(int index) {
+    setState(() {
+      _statementType = index == 0 ? StatementType.ASSET : StatementType.LIABILITY;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +29,8 @@ class _NetWorthAddState extends State<NetWorthAdd> {
       child: Scaffold(
         body: Column(children: [
           const TopBar(),
-          const Toggle(),
-          const AddForm()
+          Toggle(callback: _setStatementType),
+          AddForm(statementType: _statementType)
         ]),
       ),
     );

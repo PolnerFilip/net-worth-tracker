@@ -38,15 +38,15 @@ class NetWorthObserver with ChangeNotifier {
       for (TransactionModel transaction in transactions) {
         if (transaction.transactionType == TransactionType.DEPOSIT) {
           if (transaction.statementType == StatementType.ASSET) {
-            assetDepositTransactions += transaction.amount;
+            assetDepositTransactions += transaction.amount.toInt();
           } else {
-            liabilityDepositTransactions += transaction.amount;
+            liabilityDepositTransactions += transaction.amount.toInt();
           }
         } else {
           if (transaction.statementType == StatementType.ASSET) {
-            assetWithdrawalTransactions += transaction.amount;
+            assetWithdrawalTransactions += transaction.amount.toInt();
           } else {
-            liabilityWithdrawalTransactions += transaction.amount;
+            liabilityWithdrawalTransactions += transaction.amount.toInt();
           }
         }
       }

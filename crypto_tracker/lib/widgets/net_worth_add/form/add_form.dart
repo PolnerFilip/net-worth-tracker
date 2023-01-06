@@ -1,13 +1,25 @@
 import 'package:crypto_tracker/models/asset_type.dart';
+import 'package:crypto_tracker/models/statement_type.dart';
+import 'package:crypto_tracker/models/transaction_type.dart';
+import 'package:crypto_tracker/network/repositories/user_repository.dart';
+import 'package:crypto_tracker/services/service_locator.dart';
 import 'package:crypto_tracker/widgets/net_worth_add/form/amount_input.dart';
 import 'package:crypto_tracker/widgets/net_worth_add/form/asset_type_dropdown.dart';
 import 'package:crypto_tracker/widgets/net_worth_add/form/date_selector.dart';
 import 'package:crypto_tracker/widgets/net_worth_add/form/description_field.dart';
+import 'package:crypto_tracker/widgets/net_worth_add/toggle.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../models/transaction.dart';
+import '../../../models/user.dart';
+import '../../../network/repositories/transaction_repository.dart';
+
 class AddForm extends StatefulWidget {
-  const AddForm({Key? key}) : super(key: key);
+  const AddForm({Key? key, required this.statementType
+  }) : super(key: key);
+
+  final StatementType statementType;
 
   @override
   State<AddForm> createState() => _AddFormState();
@@ -15,12 +27,14 @@ class AddForm extends StatefulWidget {
 
 class _AddFormState extends State<AddForm> {
   final _formKey = GlobalKey<FormState>();
-  int? _amount;
-  AssetType? _assetType;
-  DateTime? _date;
-  String? _description;
+  final _transactionRepository = serviceLocator<TransactionRepository>();
+  final _userRepository = serviceLocator<UserRepository>();
+  double _amount = 0;
+  AssetType _assetType = AssetType.CRYPTOCURRENCY;
+  DateTime _date = DateTime.now();
+  String _description = '';
 
-  void _setAmount(int amount) {
+  void _setAmount(double amount) {
     setState(() {
       _amount = amount;
     });
@@ -74,12 +88,18 @@ class _AddFormState extends State<AddForm> {
               child: Container(
                 width: 80.w,
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Processing Data')),
-                      );
+                        await _transactionRepository.createTransaction(
+                          TransactionModel(
+                              timestamp: _date,
+                              assetType: _assetType,
+                              amount: _amount,
+                              transactionType: TransactionType.DEPOSIT,
+                              statementType: widget.statementType),
+                          _userRepository.userId ?? '');
                     }
+                    print('${_amount}, ${_assetType}, ${_date}, ${_description}, ${widget.statementType}');
                   },
                   child: const Text('Add'),
                 ),

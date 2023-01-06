@@ -42,7 +42,7 @@ dependencies:
   dropdown_button2: ^1.4.0
   http: ^0.13.5
   enum_to_string: ^2.0.1
-  countup: ^0.1.4
+  currency_text_input_formatter: ^2.1.8
 
 dev_dependencies:
   # The "flutter_lints" package below contains a set of recommended lints to

@@ -1,3 +1,4 @@
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
@@ -25,19 +26,19 @@ class _AmountInputState extends State<AmountInput> {
       ),
       child: Row(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 20.0),
-            child: const Icon(
-              Icons.attach_money_outlined,
-              color: Colors.black,
-              size: 25,
-
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.only(left: 20.0),
+          //   child: const Icon(
+          //     Icons.attach_money_outlined,
+          //     color: Colors.black,
+          //     size: 25,
+          //
+          //   ),
+          // ),
           Expanded(
             child: TextFormField(
               textAlign: TextAlign.end,
-              keyboardType: TextInputType.number,
+              keyboardType: const TextInputType.numberWithOptions(decimal: false),
               style: const TextStyle(
                 color: Colors.black,
                 fontSize: 25,
@@ -45,20 +46,25 @@ class _AmountInputState extends State<AmountInput> {
               ),
               decoration: const InputDecoration(
                 border: InputBorder.none,
-                contentPadding: EdgeInsets.only(right: 30.0)
+                contentPadding: EdgeInsets.only(right: 30.0),
+                hintText: '\$ 0.00',
+                hintStyle: TextStyle(
+                  color: Colors.grey,
+                )
               ),
               showCursor: false,
               inputFormatters: [
-                ThousandsSeparatorInputFormatter(),
-                LengthLimitingTextInputFormatter(10)
+                CurrencyTextInputFormatter(symbol: '\$ '),
+                LengthLimitingTextInputFormatter(15),
               ],
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
+                  return 'Please enter an amount';
                 }
                 return null;
               },
-              onChanged: (value) => widget.callback(value),
+              onChanged: (value) =>
+                  widget.callback(double.parse(value.substring(2).replaceAll(',', ''))),
             ),
           ),
         ],

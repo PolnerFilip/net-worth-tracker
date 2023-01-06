@@ -1,5 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto_tracker/models/transaction.dart';
+import 'package:crypto_tracker/network/repositories/user_repository.dart';
+import 'package:crypto_tracker/services/net_worth_observer.dart';
+import 'package:crypto_tracker/services/service_locator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/user.dart';
@@ -7,7 +11,9 @@ import '../../models/user.dart';
 class TransactionRepository {
   final _db = FirebaseFirestore.instance;
 
-  createTransaction(TransactionModel transaction, UserModel user) {
-    _db.collection('Users').doc(user.id).collection("Transactions").add(transaction.toJson()).whenComplete(() => debugPrint('Transaction added'));
+  createTransaction(TransactionModel transaction, String userId) {
+    _db.collection('Users').doc(userId).collection("Transactions").add(transaction.toJson()).whenComplete(() => debugPrint('Transaction added'));
+    serviceLocator<UserRepository>().getUserWithTransactions(FirebaseAuth.instance.currentUser?.email ?? '');
+    NetWorthObserver.instance.getNetWorth();
   }
 }

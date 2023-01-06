@@ -42,7 +42,7 @@ class Settings extends StatelessWidget {
                       amount: 200,
                       transactionType: TransactionType.DEPOSIT,
                       statementType: StatementType.LIABILITY),
-                  UserModel(id: 'gZWKzG1FQd7v8fHca0uC', email: ''));
+                  userRepository.userId ?? '');
             },
             child: const Text('Insert Transaction'))
       ],

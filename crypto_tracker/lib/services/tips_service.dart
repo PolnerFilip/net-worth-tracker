@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:crypto_tracker/services/options.dart';
 
 class TipsService {
-  final openAIApiKey = optionsOpenaiAPIKey;
+  final openAIApiKey = '';
   static TipsService instance = TipsService();
   static List<Tip> persistentTips = [];
 

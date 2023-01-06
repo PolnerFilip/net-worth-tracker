@@ -24,10 +24,9 @@ class _NetWorthTileState extends State<NetWorthTile> {
     });
     hideShow();
     showNotifier.addListener(() => mounted
-        ? setState(() {
-            hideShow();
-          })
-        : null);
+      ? setState(() {hideShow();})
+      : null
+    );
     super.initState();
   }
 
@@ -46,7 +45,7 @@ class _NetWorthTileState extends State<NetWorthTile> {
 
   @override
   void dispose() {
-    showNotifier.removeListener(() {});
+    showNotifier.removeListener(() => setState(() {hideShow();}));
     super.dispose();
   }
 

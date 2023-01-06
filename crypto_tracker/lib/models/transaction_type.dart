@@ -8,7 +8,7 @@ extension TransactionTypeExtension on TransactionType {
       case TransactionType.DEPOSIT:
         return "Deposit";
       case TransactionType.WITHDRAWL:
-        return "Withdrawl";
+        return "Withdrawal";
       default:
         return null;
     }

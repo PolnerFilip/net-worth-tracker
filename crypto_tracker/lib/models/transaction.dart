@@ -9,7 +9,7 @@ class TransactionModel {
   DateTime timestamp;
   AssetType assetType;
   StatementType statementType;
-  int amount;
+  double amount;
   TransactionType transactionType;
   String description;
 
@@ -39,7 +39,7 @@ class TransactionModel {
         id: document.id,
         timestamp: DateTime.parse(timestamp.toDate().toString()),
         assetType: EnumToString.fromString(AssetType.values, data?['assetType']) ?? AssetType.CASH,
-        amount: data?['amount'],
+        amount: data?['amount'].toDouble(),
         transactionType: EnumToString.fromString(TransactionType.values, data?['transactionType']) ?? TransactionType.DEPOSIT,
         statementType: EnumToString.fromString(StatementType.values, data?['statementType']) ?? StatementType.ASSET);
   }

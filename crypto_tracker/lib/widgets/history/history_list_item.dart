@@ -38,8 +38,12 @@ class HistoryListItem extends StatelessWidget {
                 ),
               ),
               Text(
-                (entry.transactionType == TransactionType.DEPOSIT) ? '+ ${NumberFormat.simpleCurrency().format(entry.amount)}' : '- ${NumberFormat.simpleCurrency().format(entry.amount)}',
-                style: TextStyle(fontSize: 14, color: (entry.transactionType == TransactionType.DEPOSIT) ? Colors.greenAccent : Colors.redAccent),
+                (entry.transactionType == TransactionType.DEPOSIT)
+                    ? '+ ${NumberFormat.simpleCurrency().format(entry.amount)}'
+                    : '- ${NumberFormat.simpleCurrency().format(entry.amount)}',
+                style: TextStyle(fontSize: 14, color: (entry.transactionType == TransactionType.DEPOSIT)
+                    ? Colors.greenAccent
+                    : Colors.redAccent),
               )
             ]),
           ),

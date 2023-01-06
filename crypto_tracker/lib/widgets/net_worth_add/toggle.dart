@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 class Toggle extends StatefulWidget {
-  const Toggle({Key? key}) : super(key: key);
+  const Toggle({Key? key, required this.callback}) : super(key: key);
+
+  final Function callback;
 
   @override
   State<Toggle> createState() => _ToggleState();
@@ -18,13 +20,14 @@ class _ToggleState extends State<Toggle> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 30,
+      height: 40,
       child: ToggleButtons(
           direction: Axis.horizontal,
           onPressed: (int index) {
             setState(() {
               for (int i = 0; i < _selected.length; i++) {
                 _selected[i] = i == index;
+                widget.callback(index);
               }
             });
           },
@@ -33,8 +36,7 @@ class _ToggleState extends State<Toggle> {
           color: Colors.blue[400],
           isSelected: _selected,
           children: pages,
-          constraints: BoxConstraints(minWidth: (40.w))
-      ),
+          constraints: BoxConstraints(minWidth: (40.w))),
     );
   }
 }

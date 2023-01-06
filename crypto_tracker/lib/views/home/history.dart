@@ -18,10 +18,15 @@ class HistoryScreen extends StatefulWidget {
 class _HistoryScreenState extends State<HistoryScreen> {
   final UserRepository userRepository = serviceLocator<UserRepository>();
   List<TransactionModel> transactions = [];
+  late Stream<List<TransactionModel>> _transactionsStream;
 
   @override
   void initState() {
-    _loadTransactionHistory();
+    userRepository.addListener(() => mounted
+        ? setState(() {_loadTransactionHistory();})
+        : null
+    );
+    userRepository.transactions.isEmpty ? _loadTransactionHistory() : transactions = userRepository.transactions;
     super.initState();
   }
 
@@ -33,6 +38,12 @@ class _HistoryScreenState extends State<HistoryScreen> {
         transactions = userModel.transactions ?? [];
       });
     }
+  }
+
+  @override
+  void dispose() {
+    userRepository.addListener(() => setState(() {_loadTransactionHistory();}));
+    super.dispose();
   }
 
   @override
