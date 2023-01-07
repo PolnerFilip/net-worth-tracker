@@ -26,10 +26,8 @@ class _AssetTypeDropdownState extends State<AssetTypeDropdown> {
   Widget build(BuildContext context) {
     if(widget.statementType == StatementType.LIABILITY) {
       _items = LiabilityType.values.map((value) => value.name!).toList();
-      _selectedValue = LiabilityType.STUDENT_LOAN.name;
     } else {
       _items = AssetType.values.map((value) => value.name!).toList();
-      _selectedValue = AssetType.CRYPTOCURRENCY.name;
     }
 
     return Container(
@@ -55,7 +53,7 @@ class _AssetTypeDropdownState extends State<AssetTypeDropdown> {
             ),
           ))
               .toList(),
-          value: _selectedValue,
+          value: _selectedValue ?? LiabilityType.STUDENT_LOAN,
           onChanged: (value) {
             setState(() {
               _selectedValue = value as String;
