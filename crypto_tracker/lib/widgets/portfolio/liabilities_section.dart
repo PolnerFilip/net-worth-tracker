@@ -68,10 +68,10 @@ class _LiabilitiesSectionState extends State<LiabilitiesSection> {
         ),
         if (displayPercentage)
           for (MapEntry<String, String> entry in _specificLiabilityPercentages.entries)
-            ListItem(leading: Icon(CustomIcons.getAssetIcon(entry.key)), title: entry.key, trailing: entry.value + (ShowNotifier().show ? '%' : ''), displayPercentage: displayPercentage)
+            ListItem(leading: Icon(CustomIcons.getLiabilityIcon(entry.key)), title: entry.key, trailing: entry.value + (ShowNotifier().show ? '%' : ''), displayPercentage: displayPercentage)
         else
           for (MapEntry<String, String> entry in _specificLiabilityAmounts.entries)
-            ListItem(leading: Icon(CustomIcons.getAssetIcon(entry.key)), title: entry.key, trailing: (ShowNotifier().show ? '\$' : '') + entry.value, displayPercentage: displayPercentage),
+            ListItem(leading: Icon(CustomIcons.getLiabilityIcon(entry.key)), title: entry.key, trailing: (ShowNotifier().show ? '\$' : '') + entry.value, displayPercentage: displayPercentage),
         const SizedBox(height: 20),
         Toggle(callback: callback),
       ],
