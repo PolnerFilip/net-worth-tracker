@@ -1,3 +1,4 @@
+import 'package:crypto_tracker/core/res/color.dart';
 import 'package:crypto_tracker/models/asset_type.dart';
 import 'package:crypto_tracker/models/statement_type.dart';
 import 'package:crypto_tracker/models/transaction_type.dart';
@@ -87,7 +88,8 @@ class _AddFormState extends State<AddForm> {
               padding: EdgeInsets.only(top: 20.0),
               child: Container(
                 width: 80.w,
-                child: ElevatedButton(
+                child: MaterialButton(
+                  color: AppColors.cardColor,
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                         await _transactionRepository.createTransaction(

@@ -1,3 +1,4 @@
+import 'package:crypto_tracker/core/res/color.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -22,7 +23,7 @@ class _AmountInputState extends State<AmountInput> {
       width: 80.w,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Colors.white,
+        color: AppColors.cardColor,
       ),
       child: Row(
         children: [
@@ -40,7 +41,7 @@ class _AmountInputState extends State<AmountInput> {
               textAlign: TextAlign.end,
               keyboardType: const TextInputType.numberWithOptions(decimal: false),
               style: const TextStyle(
-                color: Colors.black,
+                color: Colors.white,
                 fontSize: 25,
                 fontWeight: FontWeight.bold
               ),
