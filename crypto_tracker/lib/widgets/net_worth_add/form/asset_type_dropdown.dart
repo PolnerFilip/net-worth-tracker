@@ -1,32 +1,37 @@
 
 import 'package:crypto_tracker/models/asset_type.dart';
+import 'package:crypto_tracker/models/liability_type.dart';
+import 'package:crypto_tracker/models/statement_type.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../core/res/color.dart';
 
 class AssetTypeDropdown extends StatefulWidget {
-  const AssetTypeDropdown({Key? key, required this.callback}) : super(key: key);
+  const AssetTypeDropdown({Key? key, required this.callback, required this.statementType}) : super(key: key);
 
   final Function callback;
+  final StatementType statementType;
 
   @override
   State<AssetTypeDropdown> createState() => _AssetTypeDropdownState();
 }
 
 class _AssetTypeDropdownState extends State<AssetTypeDropdown> {
-  final List<String> items = [
-    EnumToString.convertToString(AssetType.CRYPTOCURRENCY),
-    EnumToString.convertToString(AssetType.CASH),
-    EnumToString.convertToString(AssetType.REAL_ESTATE),
-    EnumToString.convertToString(AssetType.STOCK)
-  ];
-  String? selectedValue = EnumToString.convertToString(AssetType.CRYPTOCURRENCY);
+  List<String> _items = AssetType.values.map((value) => value.name!).toList();
+  String? _selectedValue = AssetType.CRYPTOCURRENCY.name;
 
   @override
   Widget build(BuildContext context) {
+    if(widget.statementType == StatementType.LIABILITY) {
+      _items = LiabilityType.values.map((value) => value.name!).toList();
+      _selectedValue = LiabilityType.STUDENT_LOAN.name;
+    } else {
+      _items = AssetType.values.map((value) => value.name!).toList();
+      _selectedValue = AssetType.CRYPTOCURRENCY.name;
+    }
+
     return Container(
       height: 8.h,
       width: 80.w,
@@ -37,7 +42,7 @@ class _AssetTypeDropdownState extends State<AssetTypeDropdown> {
       child: DropdownButtonHideUnderline(
         child: DropdownButton2(
           isExpanded: true,
-          items: items
+          items: _items
               .map((item) => DropdownMenuItem<String>(
             value: item,
             child: Text(
@@ -50,13 +55,12 @@ class _AssetTypeDropdownState extends State<AssetTypeDropdown> {
             ),
           ))
               .toList(),
-          value: selectedValue,
+          value: _selectedValue,
           onChanged: (value) {
             setState(() {
-              selectedValue = value as String;
+              _selectedValue = value as String;
             });
-            print(selectedValue);
-            widget.callback(EnumToString.fromString(AssetType.values, selectedValue!));
+            widget.callback(widget.statementType == StatementType.ASSET ? getAssetFromName(_selectedValue!) : getLiabilityTypeFromName(_selectedValue!));
           },
           icon: const Icon(
             Icons.keyboard_arrow_down_sharp,

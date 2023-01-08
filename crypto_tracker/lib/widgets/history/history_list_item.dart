@@ -1,7 +1,10 @@
 import 'package:crypto_tracker/models/asset_type.dart';
+import 'package:crypto_tracker/models/liability_type.dart';
+import 'package:crypto_tracker/models/statement_type.dart';
 import 'package:crypto_tracker/models/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:crypto_tracker/core/res/icons.dart';
 
 import '../../core/res/color.dart';
 import '../../models/transaction_type.dart';
@@ -19,10 +22,17 @@ class HistoryListItem extends StatefulWidget {
 
 class _HistoryListItemState extends State<HistoryListItem> {
   ShowNotifier showNotifier = ShowNotifier();
+  late AssetType assetType;
+  late LiabilityType liabilityType;
 
   @override
   void initState() {
     showNotifier.addListener(() => mounted ? setState(() {}) : null);
+    if(widget.entry.statementType == StatementType.ASSET) {
+      assetType = widget.entry.assetType;
+    } else {
+      liabilityType = widget.entry.assetType;
+    }
     super.initState();
   }
 
@@ -42,56 +52,26 @@ class _HistoryListItemState extends State<HistoryListItem> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Padding(padding: const EdgeInsets.only(right: 15.0), child: getImage(widget.entry.assetType)),
+                    Padding(padding: const EdgeInsets.only(right: 15.0), child: widget.entry.statementType == StatementType.ASSET ? Icon(CustomIcons.getAssetIcon(assetType.name!)) : Icon(CustomIcons.getLiabilityIcon(liabilityType.name!))),
                     Text(
-                      widget.entry.assetType.name.toString(),
+                      widget.entry.statementType == StatementType.ASSET ? assetType.name! : liabilityType.name!,
                       style: const TextStyle(fontWeight: FontWeight.normal, letterSpacing: 0.7, fontSize: 15.5),
                     )
                   ],
                 ),
               ),
               Text(
-                (ShowNotifier().show == true)
-                    ? (widget.entry.transactionType == TransactionType.DEPOSIT)
-                        ? '+ ${NumberFormat.simpleCurrency().format(widget.entry.amount)}'
-                        : '- ${NumberFormat.simpleCurrency().format(widget.entry.amount)}'
-                    : '\u2731' * 4,
-                style:
-                    TextStyle(fontSize: 14, color: (ShowNotifier().show == true) ? (widget.entry.transactionType == TransactionType.DEPOSIT) ? Colors.greenAccent : Colors.redAccent : Colors.grey),
+                (widget.entry.transactionType == TransactionType.DEPOSIT)
+                    ? '+ ${NumberFormat.simpleCurrency().format(widget.entry.amount)}'
+                    : '- ${NumberFormat.simpleCurrency().format(widget.entry.amount)}',
+                style: TextStyle(fontSize: 14, color: (widget.entry.transactionType == TransactionType.DEPOSIT)
+                    ? Colors.greenAccent
+                    : Colors.redAccent),
               )
             ]),
           ),
         ),
       ),
     );
-  }
-}
-
-Widget getImage(AssetType type) {
-  switch (type) {
-    case AssetType.CRYPTOCURRENCY:
-      return Image.asset(
-        'assets/bitcoin.png',
-        width: 25,
-        color: Colors.orange,
-      );
-    case AssetType.REAL_ESTATE:
-      return Image.asset(
-        'assets/real_estate.png',
-        width: 25,
-        color: Colors.grey[400],
-      );
-    case AssetType.STOCK:
-      return Image.asset(
-        'assets/stock.png',
-        width: 25,
-        color: Colors.blueGrey,
-      );
-    case AssetType.CASH:
-      return Image.asset(
-        'assets/cash.png',
-        width: 25,
-        color: Colors.green,
-      );
   }
 }

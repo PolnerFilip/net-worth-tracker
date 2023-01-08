@@ -22,7 +22,6 @@ class _TopBarState extends State<TopBar> {
           onPressed: () => Navigator.pop(context)  ,
         )
       ),
-
     );
   }
 }

@@ -63,10 +63,11 @@ class LiabilityObserver with ChangeNotifier {
     if (transactions != []) {
       for (TransactionModel transaction in transactions) {
         if (transaction.statementType == StatementType.LIABILITY) {
+          LiabilityType liabilityType = transaction.assetType as LiabilityType;
           if (transaction.transactionType == TransactionType.DEPOSIT) {
-            specificLiabilityAmounts.update(transaction.assetType.name!, (value) => value + transaction.amount, ifAbsent: () => transaction.amount);
+            specificLiabilityAmounts.update(liabilityType.name!, (value) => value + transaction.amount, ifAbsent: () => transaction.amount);
           } else {
-            specificLiabilityAmounts.update(transaction.assetType.name!, (value) => value - transaction.amount, ifAbsent: () => 0);
+            specificLiabilityAmounts.update(liabilityType.name!, (value) => value - transaction.amount, ifAbsent: () => 0);
           }
         }
       }

@@ -32,7 +32,7 @@ class _AddFormState extends State<AddForm> {
   CryptoAsset? _cryptoAsset;
   double _cryptoQuantity = 0;
   double _amount = 0;
-  AssetType _assetType = AssetType.CRYPTOCURRENCY;
+  dynamic _assetType = AssetType.CRYPTOCURRENCY;
   DateTime _date = DateTime.now();
   String _description = '';
   StatementType _statementType = StatementType.ASSET;
@@ -41,13 +41,6 @@ class _AddFormState extends State<AddForm> {
     setState(() {
       _statementType = index == 0 ? StatementType.ASSET : StatementType.LIABILITY;
     });
-    print(_statementType);
-  }
-
-  @override
-  void initState() {
-    print('form:$widget.statementType');
-    super.initState();
   }
 
   void _setCryptoAsset(CryptoAsset crypto) {
@@ -60,22 +53,19 @@ class _AddFormState extends State<AddForm> {
     setState(() {
       _cryptoQuantity = quantity;
     });
-    print(_cryptoQuantity);
   }
 
   void _setAmount(double amount) {
     setState(() {
       _amount = amount;
     });
-    print(_amount);
   }
 
-  void _setAssetType(AssetType assetType) {
+  void _setAssetType(dynamic assetType) {
     setState(() {
       _assetType = assetType;
       if (_assetType != AssetType.CRYPTOCURRENCY) _cryptoAsset = null;
     });
-    print(_cryptoAsset);
   }
 
   void _setDate(DateTime date) {
@@ -125,7 +115,7 @@ class _AddFormState extends State<AddForm> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10),
-              child: AssetTypeDropdown(callback: _setAssetType),
+              child: AssetTypeDropdown(callback: _setAssetType, statementType: _statementType),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10),

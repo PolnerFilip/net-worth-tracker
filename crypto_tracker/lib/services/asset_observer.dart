@@ -62,10 +62,11 @@ class AssetObserver with ChangeNotifier {
     if (transactions != []) {
       for (TransactionModel transaction in transactions) {
         if (transaction.statementType == StatementType.ASSET) {
+          AssetType assetType = transaction.assetType as AssetType;
           if (transaction.transactionType == TransactionType.DEPOSIT) {
-            specificAssetAmounts.update(transaction.assetType.name!, (value) => value + transaction.amount, ifAbsent: () => transaction.amount);
+            specificAssetAmounts.update(assetType.name!, (value) => value + transaction.amount, ifAbsent: () => transaction.amount);
           } else {
-            specificAssetAmounts.update(transaction.assetType.name!, (value) => value - transaction.amount, ifAbsent: () => 0);
+            specificAssetAmounts.update(assetType.name!, (value) => value - transaction.amount, ifAbsent: () => 0);
           }
         }
       }

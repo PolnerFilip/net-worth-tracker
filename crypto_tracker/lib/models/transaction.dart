@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto_tracker/models/asset_type.dart';
+import 'package:crypto_tracker/models/liability_type.dart';
 import 'package:crypto_tracker/models/statement_type.dart';
 import 'package:crypto_tracker/models/transaction_type.dart';
 import 'package:enum_to_string/enum_to_string.dart';
@@ -9,7 +10,7 @@ import 'crypto_asset.dart';
 class TransactionModel {
   String? id;
   DateTime timestamp;
-  AssetType assetType;
+  dynamic assetType;
   StatementType statementType;
   double amount;
   TransactionType transactionType;
@@ -20,7 +21,7 @@ class TransactionModel {
   TransactionModel(
       {this.id,
       required this.timestamp,
-      required this.assetType,
+      this.assetType,
       required this.amount,
       required this.transactionType,
       required this.statementType,
@@ -47,7 +48,7 @@ class TransactionModel {
     return TransactionModel(
         id: document.id,
         timestamp: DateTime.parse(timestamp.toDate().toString()),
-        assetType: EnumToString.fromString(AssetType.values, data?['assetType']) ?? AssetType.CASH,
+        assetType: data?['statementType'] == 'ASSET' ? EnumToString.fromString(AssetType.values, data?['assetType'] ?? AssetType.CASH) : EnumToString.fromString(LiabilityType.values, data?['assetType'] ?? LiabilityType.STUDENT_LOAN),
         amount: data?['amount'].toDouble(),
         transactionType: EnumToString.fromString(TransactionType.values, data?['transactionType']) ?? TransactionType.DEPOSIT,
         statementType: EnumToString.fromString(StatementType.values, data?['statementType']) ?? StatementType.ASSET);
