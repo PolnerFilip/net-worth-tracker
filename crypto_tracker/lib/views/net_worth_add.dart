@@ -20,6 +20,7 @@ class _NetWorthAddState extends State<NetWorthAdd> {
     setState(() {
       _statementType = index == 0 ? StatementType.ASSET : StatementType.LIABILITY;
     });
+    print(_statementType);
   }
 
   @override
@@ -27,10 +28,9 @@ class _NetWorthAddState extends State<NetWorthAdd> {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
-        body: Column(children: [
-          const TopBar(),
-          Toggle(callback: _setStatementType),
-          AddForm(statementType: _statementType)
+        body: Column(children: const [
+          TopBar(),
+          AddForm()
         ]),
       ),
     );

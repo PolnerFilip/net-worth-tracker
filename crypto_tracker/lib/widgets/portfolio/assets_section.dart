@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:crypto_tracker/utils/show_amount_notifier.dart';
 import 'package:crypto_tracker/core/res/icons.dart';
+import 'package:intl/intl.dart';
 
 class AssetsSection extends StatefulWidget {
   const AssetsSection({Key? key}) : super(key: key);
@@ -38,8 +39,8 @@ class _AssetsSectionState extends State<AssetsSection> {
 
   void hideShow() {
     if (ShowNotifier().show) {
-      _assetSum = '\$${AssetObserver.instance.assetSum}';
-      _specificAssetAmounts = AssetObserver.instance.specificAssetAmounts.map((key, value) => MapEntry(key, value.toString()));
+      _assetSum = NumberFormat.simpleCurrency(decimalDigits: 0).format(AssetObserver.instance.assetSum);
+      _specificAssetAmounts = AssetObserver.instance.specificAssetAmounts.map((key, value) => MapEntry(key, NumberFormat.simpleCurrency(decimalDigits: 0).format(value)));
       _specificAssetPercentages = AssetObserver.instance.specificAssetPercentages.map((key, value) => MapEntry(key, value.toString()));
     } else {
       String char = '\u2731';
@@ -75,7 +76,7 @@ class _AssetsSectionState extends State<AssetsSection> {
               ListItem(leading: Icon(CustomIcons.getAssetIcon(entry.key)), title: entry.key, trailing: entry.value + (ShowNotifier().show ? '%' : ''), displayPercentage: displayPercentage)
           else
             for (MapEntry<String, String> entry in _specificAssetAmounts.entries)
-              ListItem(leading: Icon(CustomIcons.getAssetIcon(entry.key)), title: entry.key, trailing: (ShowNotifier().show ? '\$' : '') + entry.value, displayPercentage: displayPercentage),
+              ListItem(leading: Icon(CustomIcons.getAssetIcon(entry.key)), title: entry.key, trailing: entry.value, displayPercentage: displayPercentage),
         const SizedBox(height: 20),
         Toggle(callback: toggleDisplayPercentage),
       ],

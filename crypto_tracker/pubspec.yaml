@@ -43,6 +43,8 @@ dependencies:
   http: ^0.13.5
   enum_to_string: ^2.0.1
   currency_text_input_formatter: ^2.1.8
+  dropdown_search: ^5.0.5
+  crypto_font_icons: ^1.0.1
 
 dev_dependencies:
   # The "flutter_lints" package below contains a set of recommended lints to

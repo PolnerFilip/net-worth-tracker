@@ -9,9 +9,10 @@ import '../../models/transaction_type.dart';
 import '../../utils/show_amount_notifier.dart';
 
 class HistoryListItem extends StatefulWidget {
-  const HistoryListItem({Key? key, required this.entry}) : super(key: key);
+  const HistoryListItem({Key? key, required this.entry, required this.show}) : super(key: key);
 
   final TransactionModel entry;
+  final bool show;
 
   @override
   State<HistoryListItem> createState() => _HistoryListItemState();

@@ -1,6 +1,7 @@
 import 'package:crypto_tracker/core/res/color.dart';
 import 'package:crypto_tracker/network/repositories/user_repository.dart';
 import 'package:crypto_tracker/services/asset_observer.dart';
+import 'package:crypto_tracker/services/crypto_service.dart';
 import 'package:crypto_tracker/services/liability_observer.dart';
 import 'package:crypto_tracker/services/service_locator.dart';
 import 'package:crypto_tracker/services/net_worth_observer.dart';
@@ -12,6 +13,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
+import '../services/tips_service.dart';
 import 'home/portfolio.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -28,9 +30,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   void initState() {
+    CryptoService.instance.getCryptoAssets();
     NetWorthObserver.instance.getNetWorthAndRank();
     AssetObserver.instance.getAssets();
     LiabilityObserver.instance.getLiabilities();
+    TipsService.instance.getTips();
     _controller = AnimationController(
       duration: const Duration(milliseconds: 1000),
       vsync: this,
@@ -80,10 +84,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               appBar: const PreferredSize(preferredSize: Size.fromHeight(55.0), child: CustomAppBar()),
               body: _screensList[_selectedBottomIndex],
               bottomNavigationBar: Container(
-                height: kBottomNavigationBarHeight + 20,
+                height: kBottomNavigationBarHeight,
                 width: 100.w,
                 decoration: BoxDecoration(
-                  color: Colors.transparent.withOpacity(0.3),
+                  color: AppColors.bgColor,
                 ),
                 child: ListView.builder(
                   itemCount: _bottomIcons.length,
@@ -100,8 +104,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-                              width: 50,
-                              height: 50,
+                              width: 40,
+                              height: 40,
                               decoration: BoxDecoration(
                                 gradient: _selectedBottomIndex == index ? AppColors.getLinearGradient(Colors.indigo) : null,
                                 shape: BoxShape.circle,
