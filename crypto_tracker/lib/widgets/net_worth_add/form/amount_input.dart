@@ -45,12 +45,12 @@ class _AmountInputState extends State<AmountInput> {
                 fontSize: 25,
                 fontWeight: FontWeight.bold
               ),
-              decoration: const InputDecoration(
+              decoration:  InputDecoration(
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.only(right: 30.0),
                 hintText: '\$ 0.00',
                 hintStyle: TextStyle(
-                  color: Colors.grey,
+                  color: Colors.grey[400],
                 )
               ),
               showCursor: false,

@@ -59,9 +59,9 @@ class NetWorthObserver with ChangeNotifier {
 
   void _calculateRank(int netWorth) {
     if(netWorth <= 10000) {
-      rank = 'Novice';
+      rank = 'Brookie';
     } else if(netWorth <= 50000) {
-      rank = 'Apprentice';
+      rank = 'Novice';
     } else if(netWorth <= 100000) {
       rank = 'Student';
     } else if(netWorth <= 500000) {

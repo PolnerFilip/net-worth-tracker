@@ -18,6 +18,12 @@ class _DateSelectorState extends State<DateSelector> {
   DateTime? _selectedDate;
   String? _formattedDate;
 
+  @override
+  void initState() {
+    _formattedDate = DateFormat('d. MMM yyyy').format(DateTime.now());
+    super.initState();
+  }
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
@@ -51,7 +57,7 @@ class _DateSelectorState extends State<DateSelector> {
             Padding(
               padding: const EdgeInsets.only(left: 20.0),
               child: Text(
-                _formattedDate ?? 'Select date',
+                _formattedDate ?? 'Select Date',
                 style: const TextStyle(fontSize: 15),
               ),
             ),

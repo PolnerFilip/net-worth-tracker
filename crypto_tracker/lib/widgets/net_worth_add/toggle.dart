@@ -21,7 +21,7 @@ class _ToggleState extends State<Toggle> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 40,
+      height: 35,
       child: ToggleButtons(
           direction: Axis.horizontal,
           onPressed: (int index) {
@@ -40,7 +40,7 @@ class _ToggleState extends State<Toggle> {
           selectedColor: Colors.white,
           isSelected: _selected,
           children: pages,
-          constraints: BoxConstraints(minWidth: (40.w))),
+          constraints: BoxConstraints(minWidth: (40.w), minHeight: (20.h))),
     );
   }
 }

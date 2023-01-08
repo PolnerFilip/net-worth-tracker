@@ -17,8 +17,7 @@ import '../../../models/user.dart';
 import '../../../network/repositories/transaction_repository.dart';
 
 class AddForm extends StatefulWidget {
-  const AddForm({Key? key, required this.statementType
-  }) : super(key: key);
+  const AddForm({Key? key, required this.statementType}) : super(key: key);
 
   final StatementType statementType;
 
@@ -68,7 +67,7 @@ class _AddFormState extends State<AddForm> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 40),
+              padding: const EdgeInsets.only(top: 20),
               child: AmountInput(callback: _setAmount),
             ),
             Padding(
@@ -85,14 +84,15 @@ class _AddFormState extends State<AddForm> {
               child: DescriptionField(callback: _setDescription),
             )),
             Padding(
-              padding: EdgeInsets.only(top: 20.0),
-              child: Container(
+              padding: EdgeInsets.only(top: 10.0),
+              child: SizedBox(
                 width: 80.w,
                 child: MaterialButton(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
                   color: AppColors.cardColor,
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                        await _transactionRepository.createTransaction(
+                      await _transactionRepository.createTransaction(
                           TransactionModel(
                               timestamp: _date,
                               assetType: _assetType,
@@ -101,7 +101,7 @@ class _AddFormState extends State<AddForm> {
                               statementType: widget.statementType),
                           _userRepository.userId ?? '');
                     }
-                    print('${_amount}, ${_assetType}, ${_date}, ${_description}, ${widget.statementType}');
+                    print('$_amount, $_assetType, $_date, $_description, ${widget.statementType}');
                   },
                   child: const Text('Add'),
                 ),
