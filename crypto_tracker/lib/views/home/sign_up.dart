@@ -1,5 +1,6 @@
 import 'package:crypto_tracker/models/user.dart';
 import 'package:crypto_tracker/network/repositories/user_repository.dart';
+import 'package:crypto_tracker/views/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -40,6 +41,7 @@ class SignUp extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 15.0),
           child: CustomInputField(
+            obscureText: true,
             baseColor: Colors.grey,
             borderColor: Colors.grey[400]!,
             errorColor: Colors.red,
@@ -54,7 +56,8 @@ class SignUp extends StatelessWidget {
           child: CustomButton(
             text: 'Sign Up',
             onPressed: () {
-              signUp();
+              signUp(context);
+
             },
           ),
         )
@@ -62,11 +65,11 @@ class SignUp extends StatelessWidget {
     );
   }
 
-  Future signUp() async {
+  Future signUp(BuildContext context) async {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email.text.trim(), password: password.text.trim()).then((value) async {
         await userRepository.createUser(UserModel(email: email.text.trim()));
-      });
+      }).then((value) => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomeScreen())));
     } on FirebaseAuthException catch (e) {
       debugPrint(e.toString());
     }

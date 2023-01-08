@@ -1,3 +1,4 @@
+import 'package:crypto_tracker/views/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -32,12 +33,13 @@ class SignIn extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 15.0),
           child: CustomInputField(
+            obscureText: true,
             baseColor: Colors.grey,
             borderColor: Colors.grey[400]!,
             errorColor: Colors.red,
             controller: password,
             hint: "Password",
-            inputType: TextInputType.emailAddress,
+            inputType: TextInputType.visiblePassword,
             onChanged: () {},
           ),
         ),
@@ -46,7 +48,7 @@ class SignIn extends StatelessWidget {
           child: CustomButton(
             text: 'Sign In',
             onPressed: () {
-              signIn();
+              signIn(context);
             },
           ),
         )
@@ -54,7 +56,7 @@ class SignIn extends StatelessWidget {
     );
   }
 
-  Future signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(email: email.text.trim(), password: password.text.trim());
+  Future signIn(BuildContext context) async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(email: email.text.trim(), password: password.text.trim()).then((value) => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomeScreen())));;
   }
 }

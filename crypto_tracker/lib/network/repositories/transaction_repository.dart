@@ -16,7 +16,7 @@ class TransactionRepository {
   createTransaction(TransactionModel transaction, String userId) {
     _db.collection('Users').doc(userId).collection("Transactions").add(transaction.toJson()).whenComplete(() => debugPrint('Transaction added'));
     serviceLocator<UserRepository>().getUserWithTransactions(FirebaseAuth.instance.currentUser?.email ?? '');
-    NetWorthObserver.instance.getNetWorth();
+    NetWorthObserver.instance.getNetWorthAndRank();
     AssetObserver.instance.getAssets();
     LiabilityObserver.instance.getLiabilities();
   }

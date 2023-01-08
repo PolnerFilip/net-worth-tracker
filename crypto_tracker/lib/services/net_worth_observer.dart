@@ -15,10 +15,10 @@ class NetWorthObserver with ChangeNotifier {
 
   final UserRepository userRepository = serviceLocator<UserRepository>();
   int netWorth = 0;
+  String rank = '';
 
-  void getNetWorth() async {
+  void getNetWorthAndRank() async {
     fetchNetWorth().then((value) => notifyListeners());
-
   }
 
   Future<void> fetchNetWorth() async {
@@ -26,7 +26,7 @@ class NetWorthObserver with ChangeNotifier {
     if (user != null) {
       UserModel userModel = await userRepository.getUserWithTransactions(user.email ?? '');
       netWorth = _calculateNetWorth(userModel.transactions ?? []);
-
+      _calculateRank(netWorth);
     }
   }
 
@@ -53,8 +53,27 @@ class NetWorthObserver with ChangeNotifier {
         }
       }
     }
-
     netWorth = assetDepositTransactions - liabilityDepositTransactions - assetWithdrawalTransactions + liabilityWithdrawalTransactions;
     return netWorth;
+  }
+
+  void _calculateRank(int netWorth) {
+    if(netWorth <= 10000) {
+      rank = 'Novice';
+    } else if(netWorth <= 50000) {
+      rank = 'Apprentice';
+    } else if(netWorth <= 100000) {
+      rank = 'Student';
+    } else if(netWorth <= 500000) {
+      rank = 'Hustler';
+    } else if(netWorth <= 1000000) {
+      rank = 'Coach';
+    } else if(netWorth <= 10000000) {
+      rank = 'Guru';
+    } else if(netWorth <= 100000000) {
+      rank = 'Tycoon';
+    } else if(netWorth <= 500000000) {
+      rank = 'Top G';
+    }
   }
 }

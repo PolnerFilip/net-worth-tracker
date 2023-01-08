@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    NetWorthObserver.instance.getNetWorth();
+    NetWorthObserver.instance.getNetWorthAndRank();
     AssetObserver.instance.getAssets();
     LiabilityObserver.instance.getLiabilities();
     _controller = AnimationController(
@@ -44,16 +44,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       duration: const Duration(milliseconds: 1000),
       vsync: this,
     );
-    _screensList = [
-      const PortfolioScreen(),
-      const TipsScreen(),
-      const HistoryScreen()
-    ];
-    _bottomIcons = [
-      Icons.account_balance_wallet,
-      Icons.lightbulb,
-      Icons.history
-    ];
+    _screensList = [const PortfolioScreen(), const TipsScreen(), const HistoryScreen()];
+    _bottomIcons = [Icons.account_balance_wallet, Icons.lightbulb, Icons.history];
     _runAnimation();
     serviceLocator<UserRepository>().getUserId();
     super.initState();
@@ -85,13 +77,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Scaffold(
-              appBar: (true)
-                  ? PreferredSize(
-                      preferredSize: Size.fromHeight(55.0),
-                      child: CustomAppBar(
-                        rank: '1',
-                      ))
-                  : null,
+              appBar: const PreferredSize(preferredSize: Size.fromHeight(55.0), child: CustomAppBar()),
               body: _screensList[_selectedBottomIndex],
               bottomNavigationBar: Container(
                 height: kBottomNavigationBarHeight + 20,
@@ -117,9 +103,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               width: 50,
                               height: 50,
                               decoration: BoxDecoration(
-                                gradient: _selectedBottomIndex == index
-                                    ? AppColors.getLinearGradient(Colors.indigo)
-                                    : null,
+                                gradient: _selectedBottomIndex == index ? AppColors.getLinearGradient(Colors.indigo) : null,
                                 shape: BoxShape.circle,
                               ),
                               child: Icon(
