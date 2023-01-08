@@ -27,15 +27,6 @@ class _AmountInputState extends State<AmountInput> {
       ),
       child: Row(
         children: [
-          // Padding(
-          //   padding: const EdgeInsets.only(left: 20.0),
-          //   child: const Icon(
-          //     Icons.attach_money_outlined,
-          //     color: Colors.black,
-          //     size: 25,
-          //
-          //   ),
-          // ),
           Expanded(
             child: TextFormField(
               textAlign: TextAlign.end,

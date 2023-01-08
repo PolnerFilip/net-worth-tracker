@@ -4,6 +4,8 @@ import 'package:crypto_tracker/models/statement_type.dart';
 import 'package:crypto_tracker/models/transaction_type.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 
+import 'crypto_asset.dart';
+
 class TransactionModel {
   String? id;
   DateTime timestamp;
@@ -12,6 +14,8 @@ class TransactionModel {
   double amount;
   TransactionType transactionType;
   String description;
+  double? cryptoQuantity;
+  CryptoAsset? cryptoAsset;
 
   TransactionModel(
       {this.id,
@@ -20,7 +24,10 @@ class TransactionModel {
       required this.amount,
       required this.transactionType,
       required this.statementType,
-      this.description = ''});
+      this.description = '',
+      this.cryptoAsset,
+      this.cryptoQuantity
+      });
 
   toJson() {
     return {
@@ -29,6 +36,8 @@ class TransactionModel {
       "amount": amount,
       "transactionType": EnumToString.convertToString(transactionType),
       "statementType": EnumToString.convertToString(statementType),
+      "cryptoQuantity": cryptoQuantity,
+      "cryptoAsset": cryptoAsset.toString()
     };
   }
 

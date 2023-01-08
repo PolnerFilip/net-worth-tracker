@@ -1,11 +1,14 @@
 import 'package:crypto_tracker/core/res/color.dart';
 import 'package:crypto_tracker/models/asset_type.dart';
+import 'package:crypto_tracker/models/crypto_asset.dart';
 import 'package:crypto_tracker/models/statement_type.dart';
 import 'package:crypto_tracker/models/transaction_type.dart';
 import 'package:crypto_tracker/network/repositories/user_repository.dart';
 import 'package:crypto_tracker/services/service_locator.dart';
 import 'package:crypto_tracker/widgets/net_worth_add/form/amount_input.dart';
 import 'package:crypto_tracker/widgets/net_worth_add/form/asset_type_dropdown.dart';
+import 'package:crypto_tracker/widgets/net_worth_add/form/crypto_field/crypto_selector.dart';
+import 'package:crypto_tracker/widgets/net_worth_add/form/crypto_field/crypto_input.dart';
 import 'package:crypto_tracker/widgets/net_worth_add/form/date_selector.dart';
 import 'package:crypto_tracker/widgets/net_worth_add/form/description_field.dart';
 import 'package:crypto_tracker/widgets/net_worth_add/toggle.dart';
@@ -30,21 +33,39 @@ class _AddFormState extends State<AddForm> {
   final _formKey = GlobalKey<FormState>();
   final _transactionRepository = serviceLocator<TransactionRepository>();
   final _userRepository = serviceLocator<UserRepository>();
+  CryptoAsset? _cryptoAsset;
+  double _cryptoQuantity = 0;
   double _amount = 0;
   AssetType _assetType = AssetType.CRYPTOCURRENCY;
   DateTime _date = DateTime.now();
   String _description = '';
+  
+  void _setCryptoAsset(CryptoAsset crypto) {
+    setState(() {
+      _cryptoAsset = crypto;
+    });
+  }
+
+  void _setCryptoQuantity(double quantity) {
+    setState(() {
+      _cryptoQuantity = quantity;
+    });
+    print(_cryptoQuantity);
+  }
 
   void _setAmount(double amount) {
     setState(() {
       _amount = amount;
     });
+    print(_amount);
   }
 
   void _setAssetType(AssetType assetType) {
     setState(() {
       _assetType = assetType;
+      if (_assetType != AssetType.CRYPTOCURRENCY) _cryptoAsset = null;
     });
+    print(_cryptoAsset);
   }
 
   void _setDate(DateTime date) {
@@ -59,6 +80,23 @@ class _AddFormState extends State<AddForm> {
     });
   }
 
+  void _saveToDatabase() async {
+    if (_assetType == AssetType.CRYPTOCURRENCY) {
+      _amount = _cryptoQuantity * _cryptoAsset!.currentPrice;
+    }
+    await _transactionRepository.createTransaction(
+        TransactionModel(
+            timestamp: _date,
+            assetType: _assetType,
+            amount: _amount,
+            transactionType: TransactionType.DEPOSIT,
+            statementType: widget.statementType,
+            cryptoAsset: _cryptoAsset,
+            cryptoQuantity: _cryptoQuantity == 0 ? null : _cryptoQuantity
+        ),
+        _userRepository.userId ?? '');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -69,7 +107,10 @@ class _AddFormState extends State<AddForm> {
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 40),
-              child: AmountInput(callback: _setAmount),
+              child:
+              _assetType == AssetType.CRYPTOCURRENCY
+                  ? CryptoInput(assetCallback: _setCryptoAsset, quantityCallback: _setCryptoQuantity, cryptoAsset: _cryptoAsset,)
+                  : AmountInput(callback: _setAmount),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10),
@@ -92,16 +133,9 @@ class _AddFormState extends State<AddForm> {
                   color: AppColors.cardColor,
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                        await _transactionRepository.createTransaction(
-                          TransactionModel(
-                              timestamp: _date,
-                              assetType: _assetType,
-                              amount: _amount,
-                              transactionType: TransactionType.DEPOSIT,
-                              statementType: widget.statementType),
-                          _userRepository.userId ?? '');
+                        _saveToDatabase();
                     }
-                    print('${_amount}, ${_assetType}, ${_date}, ${_description}, ${widget.statementType}');
+                    print('${_cryptoQuantity} ${_cryptoAsset} ${_amount}, ${_assetType}, ${_date}, ${_description}, ${widget.statementType}');
                   },
                   child: const Text('Add'),
                 ),

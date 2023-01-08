@@ -12,6 +12,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
+import '../services/tips_service.dart';
 import 'home/portfolio.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -31,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     NetWorthObserver.instance.getNetWorth();
     AssetObserver.instance.getAssets();
     LiabilityObserver.instance.getLiabilities();
+    TipsService.instance.getTips();
     _controller = AnimationController(
       duration: const Duration(milliseconds: 1000),
       vsync: this,

@@ -6,6 +6,7 @@ import 'package:crypto_tracker/widgets/portfolio/toggle.dart';
 import 'package:flutter/material.dart';
 import 'package:crypto_tracker/utils/show_amount_notifier.dart';
 import 'package:crypto_tracker/core/res/icons.dart';
+import 'package:intl/intl.dart';
 
 class LiabilitiesSection extends StatefulWidget {
   const LiabilitiesSection({Key? key}) : super(key: key);
@@ -36,8 +37,8 @@ class _LiabilitiesSectionState extends State<LiabilitiesSection> {
 
   void hideShow() {
     if (ShowNotifier().show) {
-      _liabilitySum = '\$${LiabilityObserver.instance.liabilitySum}';
-      _specificLiabilityAmounts = LiabilityObserver.instance.specificLiabilityAmounts.map((key, value) => MapEntry(key, value.toString()));
+      _liabilitySum = NumberFormat.simpleCurrency(decimalDigits: 0).format(LiabilityObserver.instance.liabilitySum);
+      _specificLiabilityAmounts = LiabilityObserver.instance.specificLiabilityAmounts.map((key, value) => MapEntry(key, NumberFormat.simpleCurrency(decimalDigits: 0).format(value)));
       _specificLiabilityPercentages = LiabilityObserver.instance.specificLiabilityPercentages.map((key, value) => MapEntry(key, value.toString()));
     } else {
       String char = '\u2731';
@@ -71,7 +72,7 @@ class _LiabilitiesSectionState extends State<LiabilitiesSection> {
             ListItem(leading: Icon(CustomIcons.getLiabilityIcon(entry.key)), title: entry.key, trailing: entry.value + (ShowNotifier().show ? '%' : ''), displayPercentage: displayPercentage)
         else
           for (MapEntry<String, String> entry in _specificLiabilityAmounts.entries)
-            ListItem(leading: Icon(CustomIcons.getLiabilityIcon(entry.key)), title: entry.key, trailing: (ShowNotifier().show ? '\$' : '') + entry.value, displayPercentage: displayPercentage),
+            ListItem(leading: Icon(CustomIcons.getLiabilityIcon(entry.key)), title: entry.key, trailing: entry.value, displayPercentage: displayPercentage),
         const SizedBox(height: 20),
         Toggle(callback: callback),
       ],
