@@ -1,12 +1,9 @@
 import 'package:crypto_tracker/models/crypto_asset.dart';
-import 'package:crypto_tracker/widgets/net_worth_add/form/amount_input.dart';
 import 'package:crypto_tracker/widgets/net_worth_add/form/crypto_field/crypto_amount_input.dart';
 import 'package:crypto_tracker/widgets/net_worth_add/form/crypto_field/crypto_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
-
-import '../../../../core/res/color.dart';
 
 class CryptoInput extends StatefulWidget {
   const CryptoInput({Key? key, required this.assetCallback, required this.quantityCallback, this.cryptoAsset}) : super(key: key);

@@ -1,8 +1,8 @@
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:crypto_tracker/widgets/carousel_location.dart';
+import 'package:crypto_tracker/widgets/tips/tip.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:crypto_tracker/widgets/carousel_location.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:crypto_tracker/widgets/tips/tip.dart';
 
 class TipCarousel extends StatelessWidget {
   const TipCarousel(

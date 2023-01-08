@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../utils/thousands_input_formatter.dart';
-
 class AmountInput extends StatefulWidget {
   const AmountInput({Key? key, required this.callback}) : super(key: key);
 

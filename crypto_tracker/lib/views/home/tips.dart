@@ -1,5 +1,5 @@
-import 'package:crypto_tracker/services/tips_service.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:crypto_tracker/services/tips_service.dart';
 import 'package:crypto_tracker/widgets/tips/tip.dart';
 import 'package:crypto_tracker/widgets/tips/tips_carousel.dart';
 import 'package:flutter/material.dart';

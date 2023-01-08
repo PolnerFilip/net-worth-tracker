@@ -1,11 +1,10 @@
 import 'dart:convert';
 
-import 'package:crypto_tracker/models/asset_type.dart';
 import 'package:crypto_tracker/services/asset_observer.dart';
 import 'package:crypto_tracker/services/liability_observer.dart';
+import 'package:crypto_tracker/services/options.dart';
 import 'package:crypto_tracker/widgets/tips/tip.dart';
 import 'package:http/http.dart' as http;
-import 'package:crypto_tracker/services/options.dart';
 
 class TipsService {
   final openAIApiKey = openAIApiKeyOptions;

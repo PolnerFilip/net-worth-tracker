@@ -3,8 +3,8 @@ import 'package:crypto_tracker/network/repositories/user_repository.dart';
 import 'package:crypto_tracker/services/asset_observer.dart';
 import 'package:crypto_tracker/services/crypto_service.dart';
 import 'package:crypto_tracker/services/liability_observer.dart';
-import 'package:crypto_tracker/services/service_locator.dart';
 import 'package:crypto_tracker/services/net_worth_observer.dart';
+import 'package:crypto_tracker/services/service_locator.dart';
 import 'package:crypto_tracker/views/home/authentification_screen.dart';
 import 'package:crypto_tracker/views/home/history.dart';
 import 'package:crypto_tracker/views/home/tips.dart';
@@ -81,13 +81,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Scaffold(
+
               appBar: const PreferredSize(preferredSize: Size.fromHeight(55.0), child: CustomAppBar()),
               body: _screensList[_selectedBottomIndex],
               bottomNavigationBar: Container(
-                height: kBottomNavigationBarHeight,
+                height: kBottomNavigationBarHeight + 10,
                 width: 100.w,
                 decoration: BoxDecoration(
-                  color: AppColors.bgColor,
+                  color: AppColors.bgColor.withOpacity(0.8),
                 ),
                 child: ListView.builder(
                   itemCount: _bottomIcons.length,

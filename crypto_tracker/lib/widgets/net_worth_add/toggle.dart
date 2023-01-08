@@ -1,6 +1,6 @@
+import 'package:crypto_tracker/core/res/color.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:crypto_tracker/core/res/color.dart';
 
 class Toggle extends StatefulWidget {
   const Toggle({Key? key, required this.callback}) : super(key: key);

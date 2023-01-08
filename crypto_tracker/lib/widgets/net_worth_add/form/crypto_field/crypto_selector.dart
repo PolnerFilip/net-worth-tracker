@@ -1,7 +1,5 @@
-import 'package:crypto_font_icons/crypto_font_icons.dart';
 import 'package:crypto_tracker/services/crypto_service.dart';
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 

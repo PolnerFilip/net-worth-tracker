@@ -1,4 +1,3 @@
-import 'package:crypto_tracker/core/res/color.dart';
 import 'package:crypto_tracker/views/home/sign_in.dart';
 import 'package:crypto_tracker/views/home/sign_up.dart';
 import 'package:crypto_tracker/widgets/sign_in_toggle.dart';

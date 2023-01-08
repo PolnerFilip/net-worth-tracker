@@ -20,7 +20,7 @@ class _NetWorthTileState extends State<NetWorthTile> {
 
   @override
   void initState() {
-    hiddenValue = '\u2731' * 6;
+    hiddenValue = '\u2731' * 4;
     NetWorthObserver.instance.addListener(() {
       setState(() {});
     });

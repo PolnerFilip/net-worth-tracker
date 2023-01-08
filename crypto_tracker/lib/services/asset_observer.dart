@@ -1,5 +1,4 @@
 import 'dart:collection';
-import 'dart:ffi';
 
 import 'package:crypto_tracker/models/asset_type.dart';
 import 'package:crypto_tracker/models/statement_type.dart';

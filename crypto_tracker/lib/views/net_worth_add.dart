@@ -1,6 +1,5 @@
 import 'package:crypto_tracker/models/statement_type.dart';
 import 'package:crypto_tracker/widgets/net_worth_add/form/add_form.dart';
-import 'package:crypto_tracker/widgets/net_worth_add/toggle.dart';
 import 'package:crypto_tracker/widgets/net_worth_add/top_bar.dart';
 import 'package:flutter/material.dart';
 

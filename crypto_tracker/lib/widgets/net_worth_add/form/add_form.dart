@@ -7,7 +7,6 @@ import 'package:crypto_tracker/network/repositories/user_repository.dart';
 import 'package:crypto_tracker/services/service_locator.dart';
 import 'package:crypto_tracker/widgets/net_worth_add/form/amount_input.dart';
 import 'package:crypto_tracker/widgets/net_worth_add/form/asset_type_dropdown.dart';
-import 'package:crypto_tracker/widgets/net_worth_add/form/crypto_field/crypto_selector.dart';
 import 'package:crypto_tracker/widgets/net_worth_add/form/crypto_field/crypto_input.dart';
 import 'package:crypto_tracker/widgets/net_worth_add/form/date_selector.dart';
 import 'package:crypto_tracker/widgets/net_worth_add/form/description_field.dart';
@@ -16,7 +15,6 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../models/transaction.dart';
-import '../../../models/user.dart';
 import '../../../network/repositories/transaction_repository.dart';
 
 class AddForm extends StatefulWidget {

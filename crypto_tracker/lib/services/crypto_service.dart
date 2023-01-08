@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 
 import '../models/crypto_asset.dart';
-import 'package:http/http.dart' as http;
 
 class CryptoService {
   static CryptoService instance = CryptoService();

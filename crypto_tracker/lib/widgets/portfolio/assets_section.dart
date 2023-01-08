@@ -1,13 +1,13 @@
 import 'dart:collection';
 
+import 'package:crypto_tracker/core/res/icons.dart';
 import 'package:crypto_tracker/services/asset_observer.dart';
+import 'package:crypto_tracker/utils/show_amount_notifier.dart';
 import 'package:crypto_tracker/widgets/portfolio/list_item.dart';
 import 'package:crypto_tracker/widgets/portfolio/section_title.dart';
 import 'package:crypto_tracker/widgets/portfolio/toggle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:crypto_tracker/utils/show_amount_notifier.dart';
-import 'package:crypto_tracker/core/res/icons.dart';
 import 'package:intl/intl.dart';
 
 class AssetsSection extends StatefulWidget {

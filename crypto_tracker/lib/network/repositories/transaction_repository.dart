@@ -8,8 +8,6 @@ import 'package:crypto_tracker/services/service_locator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../models/user.dart';
-
 class TransactionRepository {
   final _db = FirebaseFirestore.instance;
 

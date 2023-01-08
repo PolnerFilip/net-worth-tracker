@@ -7,7 +7,6 @@ import '../../models/transaction.dart';
 import '../../models/user.dart';
 import '../../network/repositories/user_repository.dart';
 import '../../services/service_locator.dart';
-import '../../utils/show_amount_notifier.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({Key? key}) : super(key: key);

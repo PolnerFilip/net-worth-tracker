@@ -1,5 +1,4 @@
 import 'package:crypto_tracker/models/asset_type.dart';
-import 'package:crypto_tracker/models/statement_type.dart';
 import 'package:crypto_tracker/models/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -56,7 +55,7 @@ class _HistoryListItemState extends State<HistoryListItem> {
                     ? (widget.entry.transactionType == TransactionType.DEPOSIT)
                         ? '+ ${NumberFormat.simpleCurrency().format(widget.entry.amount)}'
                         : '- ${NumberFormat.simpleCurrency().format(widget.entry.amount)}'
-                    : '\u2731' * 6,
+                    : '\u2731' * 4,
                 style:
                     TextStyle(fontSize: 14, color: (ShowNotifier().show == true) ? (widget.entry.transactionType == TransactionType.DEPOSIT) ? Colors.greenAccent : Colors.redAccent : Colors.grey),
               )
