@@ -18,3 +18,18 @@ extension ConstructionClassExtension on AssetType {
     }
   }
 }
+
+AssetType getAssetFromName(String name) {
+  switch (name) {
+    case 'Cryptocurrency':
+      return AssetType.CRYPTOCURRENCY;
+    case 'Real Estate':
+      return AssetType.REAL_ESTATE;
+    case 'Stocks':
+      return AssetType.STOCK;
+    case 'Cash':
+      return AssetType.CASH;
+    default:
+      return AssetType.CRYPTOCURRENCY;
+  }
+}
