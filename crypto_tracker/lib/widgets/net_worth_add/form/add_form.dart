@@ -101,6 +101,7 @@ class _AddFormState extends State<AddForm> {
                               statementType: widget.statementType),
                           _userRepository.userId ?? '');
                     }
+                    Navigator.of(context).pop();
                     print('$_amount, $_assetType, $_date, $_description, ${widget.statementType}');
                   },
                   child: const Text('Add'),
