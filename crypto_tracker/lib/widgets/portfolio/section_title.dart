@@ -16,12 +16,10 @@ class SectionTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
         leading: Text(leading, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-        trailing: Text((ShowNotifier().show) ?
-          NumberFormat.simpleCurrency().format(
-              isAssets
-                  ? AssetObserver.instance.assetSum
-                  : LiabilityObserver.instance.liabilitySum
-              ): '\u2731' * 6,
+        trailing: Text(
+          (ShowNotifier().show)
+              ? NumberFormat.simpleCurrency().format(isAssets ? AssetObserver.instance.assetSum : LiabilityObserver.instance.liabilitySum)
+              : '\u2731' * 6,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ));
   }

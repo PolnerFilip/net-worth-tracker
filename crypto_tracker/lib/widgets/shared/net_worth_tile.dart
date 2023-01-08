@@ -78,7 +78,7 @@ class _NetWorthTileState extends State<NetWorthTile> {
                         Text(
                           (ShowNotifier().show)
                               ? NumberFormat.simpleCurrency(decimalDigits: 0).format(NetWorthObserver.instance.netWorth)
-                              : '\$$hiddenValue',
+                              : hiddenValue,
                           style: TextStyle(
                             color: Colors.white,
                             letterSpacing: 2,
