@@ -7,6 +7,7 @@ import '../../models/transaction.dart';
 import '../../models/user.dart';
 import '../../network/repositories/user_repository.dart';
 import '../../services/service_locator.dart';
+import '../../utils/show_amount_notifier.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({Key? key}) : super(key: key);
@@ -18,14 +19,14 @@ class HistoryScreen extends StatefulWidget {
 class _HistoryScreenState extends State<HistoryScreen> {
   final UserRepository userRepository = serviceLocator<UserRepository>();
   List<TransactionModel> transactions = [];
-  late Stream<List<TransactionModel>> _transactionsStream;
 
   @override
   void initState() {
     userRepository.addListener(() => mounted
-        ? setState(() {_loadTransactionHistory();})
-        : null
-    );
+        ? setState(() {
+            _loadTransactionHistory();
+          })
+        : null);
     userRepository.transactions.isEmpty ? _loadTransactionHistory() : transactions = userRepository.transactions;
     super.initState();
   }
@@ -42,7 +43,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   @override
   void dispose() {
-    userRepository.addListener(() => setState(() {_loadTransactionHistory();}));
+    userRepository.addListener(() => setState(() {
+          _loadTransactionHistory();
+        }));
     super.dispose();
   }
 

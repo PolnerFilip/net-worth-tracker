@@ -63,6 +63,7 @@ class _LiabilitiesSectionState extends State<LiabilitiesSection> {
     return Column(
       children: [
         SectionTitle(
+            isAssets: false,
             leading: 'Liabilities',
             trailing: _liabilitySum
         ),

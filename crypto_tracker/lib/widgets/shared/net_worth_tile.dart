@@ -1,6 +1,7 @@
 import 'package:crypto_tracker/services/net_worth_observer.dart';
 import 'package:crypto_tracker/utils/show_amount_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../core/res/color.dart';
@@ -14,39 +15,27 @@ class NetWorthTile extends StatefulWidget {
 }
 
 class _NetWorthTileState extends State<NetWorthTile> {
-  String _netWorthDisplay = "\$";
   ShowNotifier showNotifier = ShowNotifier();
+  String hiddenValue = '';
 
   @override
   void initState() {
+    hiddenValue = '\u2731' * 6;
     NetWorthObserver.instance.addListener(() {
-      setState(() {hideShow();});
+      setState(() {});
     });
-    hideShow();
-    showNotifier.addListener(() => mounted
-      ? setState(() {hideShow();})
-      : null
-    );
-    super.initState();
 
+    showNotifier.addListener(() => mounted ? setState(() {}) : null);
+    super.initState();
   }
 
   void navigate(BuildContext context) {
     Navigator.push(context, MaterialPageRoute(builder: (context) => const NetWorthAdd()));
   }
 
-  void hideShow() {
-    if (ShowNotifier().show) {
-      _netWorthDisplay = '\$${NetWorthObserver.instance.netWorth}';
-    } else {
-      String char = '\u2731';
-      _netWorthDisplay = char * 4;
-    }
-  }
-
   @override
   void dispose() {
-    showNotifier.removeListener(() => setState(() {hideShow();}));
+    showNotifier.removeListener(() => setState(() {}));
     super.dispose();
   }
 
@@ -87,14 +76,16 @@ class _NetWorthTileState extends State<NetWorthTile> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                                _netWorthDisplay,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  letterSpacing: 2,
-                                  fontSize: ShowNotifier().show ? 45 : 37,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                          (ShowNotifier().show)
+                              ? NumberFormat.simpleCurrency(decimalDigits: 0).format(NetWorthObserver.instance.netWorth)
+                              : '\$$hiddenValue',
+                          style: TextStyle(
+                            color: Colors.white,
+                            letterSpacing: 2,
+                            fontSize: ShowNotifier().show ? 45 : 36,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                         IconButton(
                             onPressed: () => navigate(context),
                             icon: const Icon(

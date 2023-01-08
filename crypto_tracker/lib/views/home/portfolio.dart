@@ -28,40 +28,44 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
       child: Column(
         children: [
           const NetWorthTile(),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                // color: AppColors.cardColor.withOpacity(0.2),
-              ),
-              width: 100.w,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 8.0, top: 8.0),
-                child: Column(
-                  children: [
-                    CarouselSlider(
-                        options: CarouselOptions(
-                          autoPlay: false,
-                          enlargeCenterPage: true,
-                          aspectRatio: 2.0,
-                          height: 45.h,
-                          enableInfiniteScroll: false,
-                          enlargeFactor: 3,
-                          onPageChanged: (index, reason) {
-                            setState(() {
-                              _current = index;
-                            });
-                          }),
-                        items: pages,
-                        carouselController: _carouselController),
-                    CarouselLocation(
-                        content: pages,
-                        carouselController: _carouselController,
-                        current: _current)
-                  ],
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    // color: AppColors.cardColor.withOpacity(0.2),
+                  ),
+                  width: 100.w,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0, top: 8.0),
+                    child: Column(
+                      children: [
+                        CarouselSlider(
+                            options: CarouselOptions(
+                              autoPlay: false,
+                              enlargeCenterPage: true,
+                              aspectRatio: 2.0,
+                              height: 40.h,
+                              enableInfiniteScroll: false,
+                              enlargeFactor: 3,
+                              onPageChanged: (index, reason) {
+                                setState(() {
+                                  _current = index;
+                                });
+                              }),
+                            items: pages,
+                            carouselController: _carouselController),
+                        CarouselLocation(
+                            content: pages,
+                            carouselController: _carouselController,
+                            current: _current)
+                      ],
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
         ],

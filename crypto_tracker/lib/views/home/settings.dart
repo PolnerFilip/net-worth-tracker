@@ -3,6 +3,7 @@ import 'package:crypto_tracker/models/statement_type.dart';
 import 'package:crypto_tracker/models/transaction.dart';
 import 'package:crypto_tracker/models/transaction_type.dart';
 import 'package:crypto_tracker/network/repositories/transaction_repository.dart';
+import 'package:crypto_tracker/views/home/authentification_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -22,9 +23,17 @@ class Settings extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ElevatedButton(
-            onPressed: () {
-              FirebaseAuth.instance.signOut();
-              Navigator.pop(context);
+            onPressed: () async{
+              await FirebaseAuth.instance.signOut();
+              Navigator.of(context, rootNavigator: true)
+                  .pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return const SignInScreen();
+                  },
+                ),
+                    (_) => false,
+              );
             },
             child: const Text('Sign Out')),
         ElevatedButton(

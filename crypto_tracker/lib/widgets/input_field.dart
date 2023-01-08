@@ -12,14 +12,17 @@ class CustomInputField extends StatefulWidget {
   final Icon? prefixIcon;
 
   const CustomInputField(
-      {Key? key, required this.hint,
+      {Key? key,
+      required this.hint,
       required this.controller,
       required this.baseColor,
       required this.borderColor,
       required this.errorColor,
       this.inputType = TextInputType.text,
       this.obscureText = false,
-      required this.onChanged, this.prefixIcon}) : super(key: key);
+      required this.onChanged,
+      this.prefixIcon})
+      : super(key: key);
 
   @override
   _CustomInputFieldState createState() => _CustomInputFieldState();
@@ -48,16 +51,13 @@ class _CustomInputFieldState extends State<CustomInputField> {
         child: TextField(
           obscureText: widget.obscureText,
           onChanged: (text) {
-            if (widget.onChanged != null) {
-              widget.onChanged(text);
-            }
+            widget.onChanged(text);
           },
           style: const TextStyle(color: Colors.white),
           cursorColor: Colors.grey,
           //keyboardType: widget.inputType,
           controller: widget.controller,
           decoration: InputDecoration(
-
             hintStyle: TextStyle(
               color: widget.baseColor,
               fontFamily: "OpenSans",

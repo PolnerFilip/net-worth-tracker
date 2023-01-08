@@ -66,6 +66,7 @@ class _AssetsSectionState extends State<AssetsSection> {
     return Column(
       children: [
         SectionTitle(
+          isAssets: true,
           leading: 'Assets',
           trailing: _assetSum
         ),

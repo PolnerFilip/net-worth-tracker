@@ -3,11 +3,11 @@ import 'package:crypto_tracker/views/home/settings.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/res/color.dart';
+import '../../services/net_worth_observer.dart';
 
 class CustomAppBar extends StatefulWidget {
-  CustomAppBar({Key? key, required this.rank}) : super(key: key);
+  const CustomAppBar({Key? key}) : super(key: key);
 
-  final String rank;
 
   @override
   State<CustomAppBar> createState() => _CustomAppBarState();
@@ -17,12 +17,20 @@ class _CustomAppBarState extends State<CustomAppBar> {
   bool isHidden = false;
 
   @override
+  void initState() {
+    NetWorthObserver.instance.addListener(() {
+      setState(() {});
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AppBar(
       bottomOpacity: 0.0,
       elevation: 0.0,
       backgroundColor: Colors.transparent,
-      leadingWidth: 200,
+      leadingWidth: 500,
       flexibleSpace: Container(color: AppColors.cardColor.withOpacity(0.6),),
       leading: Row(
         children: [
@@ -30,13 +38,13 @@ class _CustomAppBarState extends State<CustomAppBar> {
             padding: const EdgeInsets.only(left: 20.0, right: 15),
             child: Image.asset(
               'assets/Rank.png',
-              width: 25,
-              color: Colors.white,
+              width: 23,
+              color: Colors.yellow[600],
             ),
           ),
           Text(
-            'Rank ${widget.rank}',
-            style: const TextStyle(color: Colors.white, fontSize: 15),
+            NetWorthObserver.instance.rank,
+            style:  TextStyle(color: Colors.grey[200], fontSize: 16),
           )
         ],
       ),
@@ -47,8 +55,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 isHidden = !isHidden;
               });
               ShowNotifier().show = !isHidden;
-              print('ISHIDDEN' + isHidden.toString());
-              print('SHOW: ' + ShowNotifier().show.toString());
             },
             icon: (isHidden) ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility)),
         Padding(
