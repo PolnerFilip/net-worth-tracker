@@ -19,7 +19,7 @@ extension ConstructionClassExtension on AssetType {
   }
 }
 
-AssetType getAssetFromName(String name) {
+AssetType? getAssetFromName(String name) {
   switch (name) {
     case 'Cryptocurrency':
       return AssetType.CRYPTOCURRENCY;
@@ -30,6 +30,6 @@ AssetType getAssetFromName(String name) {
     case 'Cash':
       return AssetType.CASH;
     default:
-      return AssetType.CRYPTOCURRENCY;
+      return null;
   }
 }

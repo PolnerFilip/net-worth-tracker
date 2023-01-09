@@ -19,7 +19,7 @@ extension ConstructionClassExtension on LiabilityType {
   }
 }
 
-LiabilityType getLiabilityTypeFromName(String name) {
+LiabilityType? getLiabilityTypeFromName(String name) {
   switch (name) {
     case 'Student Loan':
       return LiabilityType.STUDENT_LOAN;
@@ -30,6 +30,6 @@ LiabilityType getLiabilityTypeFromName(String name) {
     case 'Credit Card Debt':
       return LiabilityType.CREDIT_CARD_DEBT;
     default:
-      return LiabilityType.STUDENT_LOAN;
+      return null;
   }
 }

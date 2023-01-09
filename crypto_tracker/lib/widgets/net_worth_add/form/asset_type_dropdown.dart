@@ -26,8 +26,16 @@ class _AssetTypeDropdownState extends State<AssetTypeDropdown> {
   Widget build(BuildContext context) {
     if(widget.statementType == StatementType.LIABILITY) {
       _items = LiabilityType.values.map((value) => value.name!).toList();
+      if(getLiabilityTypeFromName(_selectedValue!) == null) {
+        _selectedValue = LiabilityType.STUDENT_LOAN.name;
+      }
+
     } else {
       _items = AssetType.values.map((value) => value.name!).toList();
+      if(getAssetFromName(_selectedValue!) == null) {
+        _selectedValue = AssetType.CRYPTOCURRENCY.name;
+      }
+
     }
 
     return Container(
