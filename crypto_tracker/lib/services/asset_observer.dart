@@ -18,7 +18,7 @@ class AssetObserver with ChangeNotifier {
 
   final UserRepository userRepository = serviceLocator<UserRepository>();
   int assetSum = 0;
-  Map<String, double> specificAssetAmounts = HashMap();
+  Map<String, double> specificAssetAmounts = HashMap() ;
   Map<String, int> specificAssetPercentages = HashMap();
 
   void getAssets() async {

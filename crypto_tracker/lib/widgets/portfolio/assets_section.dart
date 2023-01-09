@@ -45,27 +45,22 @@ class _AssetsSectionState extends State<AssetsSection> {
 
   void hideShow() {
     if (ShowNotifier().show) {
-      _assetSum =
-          NumberFormat.simpleCurrency(decimalDigits: 0).format(AssetObserver.instance.assetSum);
-      _specificAssetAmounts = AssetObserver.instance.specificAssetAmounts.map((key, value) =>
-          MapEntry(key, NumberFormat.simpleCurrency(decimalDigits: 0).format(value)));
-      _specificAssetPercentages = AssetObserver.instance.specificAssetPercentages
-          .map((key, value) => MapEntry(key, value.toString()));
+      _assetSum = NumberFormat.simpleCurrency(decimalDigits: 0).format(AssetObserver.instance.assetSum);
+      _specificAssetAmounts = AssetObserver.instance.specificAssetAmounts.map((key, value) {
+        return MapEntry(key, NumberFormat.simpleCurrency(decimalDigits: 0).format(value));
+      });
+      _specificAssetPercentages = AssetObserver.instance.specificAssetPercentages.map((key, value) => MapEntry(key, value.toString()));
     } else {
       String char = '\u2731';
       _assetSum = char * 4;
-      _specificAssetAmounts =
-          AssetObserver.instance.specificAssetAmounts.map((key, value) => MapEntry(key, char * 4));
-      _specificAssetPercentages = AssetObserver.instance.specificAssetPercentages
-          .map((key, value) => MapEntry(key, char * 4));
+      _specificAssetAmounts = AssetObserver.instance.specificAssetAmounts.map((key, value) => MapEntry(key, char * 4));
+      _specificAssetPercentages = AssetObserver.instance.specificAssetPercentages.map((key, value) => MapEntry(key, char * 4));
     }
   }
 
   @override
   void dispose() {
-    showNotifier.removeListener(() => setState(() {
-          hideShow();
-        }));
+    showNotifier.removeListener(() => setState(() {}));
     super.dispose();
   }
 

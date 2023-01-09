@@ -13,13 +13,13 @@ import 'package:crypto_tracker/widgets/net_worth_add/form/amount_input.dart';
 import 'package:crypto_tracker/widgets/net_worth_add/form/asset_type_dropdown.dart';
 import 'package:crypto_tracker/widgets/net_worth_add/form/date_selector.dart';
 import 'package:crypto_tracker/widgets/net_worth_add/form/description_field.dart';
+import 'package:crypto_tracker/widgets/shared/fullscreen_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
 class WithdrawForm extends StatefulWidget {
-  const WithdrawForm({Key? key, required this.statementType, required this.assetType})
-      : super(key: key);
+  const WithdrawForm({Key? key, required this.statementType, required this.assetType}) : super(key: key);
 
   final StatementType statementType;
   final dynamic assetType;
@@ -82,8 +82,7 @@ class _WithdrawFormState extends State<WithdrawForm> {
           children: [
             Padding(
               padding: const EdgeInsets.only(bottom: 20, top: 20),
-              child: Text("Withdraw " + _assetTypeName,
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+              child: Text("Withdraw " + _assetTypeName, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20),
@@ -99,9 +98,9 @@ class _WithdrawFormState extends State<WithdrawForm> {
             ),
             Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: DescriptionField(callback: _setDescription),
-                )),
+              padding: const EdgeInsets.only(top: 10),
+              child: DescriptionField(callback: _setDescription),
+            )),
             Padding(
               padding: const EdgeInsets.only(top: 30.0),
               child: SizedBox(
@@ -111,7 +110,8 @@ class _WithdrawFormState extends State<WithdrawForm> {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
                   onPressed: () async {
                     if (_currentHolding < _amount) {
-                      print("Error");
+                      Navigator.of(context)
+                          .push(PageRouteBuilder(opaque: false, pageBuilder: (BuildContext context, _, __) => const FullscreenAlert(title: 'The amount you entered is larger than you holding amount. Please enter a smaller amount.',)));
                     } else {
                       if (_formKey.currentState!.validate()) {
                         await _transactionRepository.createTransaction(

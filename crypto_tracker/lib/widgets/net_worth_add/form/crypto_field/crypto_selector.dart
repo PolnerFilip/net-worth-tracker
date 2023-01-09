@@ -6,12 +6,8 @@ import 'package:sizer/sizer.dart';
 import '../../../../core/res/color.dart';
 import '../../../../models/crypto_asset.dart';
 
-
 class CryptoSelector extends StatefulWidget {
-  const CryptoSelector({
-    Key? key,
-    required this.callback
-  }) : super(key: key);
+  const CryptoSelector({Key? key, required this.callback}) : super(key: key);
 
   final Function callback;
 
@@ -30,10 +26,7 @@ class _CryptoSelectorState extends State<CryptoSelector> {
   }
 
   void getCryptos() async {
-    cryptoAssets =
-    CryptoService.cryptoAssets.isEmpty
-        ? await CryptoService.instance.getCryptoAssets()
-        : CryptoService.cryptoAssets;
+    cryptoAssets = CryptoService.cryptoAssets.isEmpty ? await CryptoService.instance.getCryptoAssets() : CryptoService.cryptoAssets;
     setState(() {});
     print(cryptoAssets[0].image);
   }
@@ -53,24 +46,25 @@ class _CryptoSelectorState extends State<CryptoSelector> {
             child: DropdownSearch<CryptoAsset>(
               items: cryptoAssets,
               compareFn: (i, s) => i == s,
-              onChanged: (value) => widget.callback(value),
+              onChanged: (value) {
+                widget.callback(value);
+              },
               popupProps: PopupPropsMultiSelection.modalBottomSheet(
-                title: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Text('Select crypto asset', style: TextStyle(color: Colors.blue),),
-                ),
-                showSelectedItems: true,
-                showSearchBox: true,
-                itemBuilder: _customPopupItemBuilderExample2,
-                modalBottomSheetProps: ModalBottomSheetProps(
-                  backgroundColor: AppColors.bgColor
-                )
-              ),
-              dropdownDecoratorProps: DropDownDecoratorProps(
+                  title: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8),
+                    child: Text(
+                      'Select crypto asset',
+                      style: TextStyle(color: Colors.blue),
+                    ),
+                  ),
+                  showSelectedItems: true,
+                  showSearchBox: true,
+                  itemBuilder: _customPopupItemBuilderExample2,
+                  modalBottomSheetProps: ModalBottomSheetProps(backgroundColor: AppColors.bgColor)),
+              dropdownDecoratorProps: const DropDownDecoratorProps(
                 dropdownSearchDecoration: InputDecoration(
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.only(left: 20, top: 15),
-                  
                 ),
               ),
             ),
@@ -82,10 +76,10 @@ class _CryptoSelectorState extends State<CryptoSelector> {
 }
 
 Widget _customPopupItemBuilderExample2(
-    BuildContext context,
-    CryptoAsset item,
-    bool isSelected,
-    ) {
+  BuildContext context,
+  CryptoAsset item,
+  bool isSelected,
+) {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 8),
     decoration: BoxDecoration(

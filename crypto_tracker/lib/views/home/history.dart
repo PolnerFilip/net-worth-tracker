@@ -40,13 +40,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
     }
   }
 
-  @override
-  void dispose() {
-    userRepository.addListener(() => setState(() {
-          _loadTransactionHistory();
-        }));
-    super.dispose();
-  }
+
 
   @override
   Widget build(BuildContext context) {

@@ -41,6 +41,16 @@ class _ListItemState extends State<ListItem> {
   }
 
   @override
+  void didUpdateWidget(covariant ListItem oldWidget) {
+    _amount = Text(
+      widget.trailing.toString(),
+      style: const TextStyle(fontWeight: FontWeight.bold),
+    );
+    _trailing = _amount;
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(4.0),

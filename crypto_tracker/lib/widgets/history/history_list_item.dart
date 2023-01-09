@@ -28,7 +28,7 @@ class _HistoryListItemState extends State<HistoryListItem> {
   @override
   void initState() {
     showNotifier.addListener(() => mounted ? setState(() {}) : null);
-    if(widget.entry.statementType == StatementType.ASSET) {
+    if (widget.entry.statementType == StatementType.ASSET) {
       assetType = widget.entry.assetType;
     } else {
       liabilityType = widget.entry.assetType;
@@ -37,13 +37,26 @@ class _HistoryListItemState extends State<HistoryListItem> {
   }
 
   @override
+  void didUpdateWidget(covariant HistoryListItem oldWidget) {
+    if (widget.entry.statementType == StatementType.ASSET) {
+      assetType = widget.entry.assetType;
+    } else {
+      liabilityType = widget.entry.assetType;
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20.0),
       child: SizedBox(
         height: 70,
+
         child: DecoratedBox(
-          decoration: BoxDecoration(color: AppColors.cardColor.withOpacity(0.2), borderRadius: const BorderRadius.all(Radius.circular(15))),
+          decoration: BoxDecoration(
+              color: (widget.entry.statementType == StatementType.ASSET) ? AppColors.cardColor.withOpacity(0.2) : Colors.red.withOpacity(0.2),
+              borderRadius: const BorderRadius.all(Radius.circular(15))),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -52,21 +65,26 @@ class _HistoryListItemState extends State<HistoryListItem> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Padding(padding: const EdgeInsets.only(right: 15.0), child: widget.entry.statementType == StatementType.ASSET ? Icon(CustomIcons.getAssetIcon(assetType.name!)) : Icon(CustomIcons.getLiabilityIcon(liabilityType.name!))),
+                    Padding(padding: const EdgeInsets.only(right: 15.0),
+                        child: widget.entry.statementType == StatementType.ASSET ? Icon(CustomIcons.getAssetIcon(assetType.name!)) : Icon(
+                            CustomIcons.getLiabilityIcon(liabilityType.name!))),
                     Text(
-                      widget.entry.statementType == StatementType.ASSET ? assetType.name! : liabilityType.name!,
+                      widget.entry.statementType == StatementType.ASSET ? assetType.name ?? '' : liabilityType.name ?? '',
                       style: const TextStyle(fontWeight: FontWeight.normal, letterSpacing: 0.7, fontSize: 15.5),
                     )
                   ],
                 ),
               ),
               Text(
-                (widget.entry.transactionType == TransactionType.DEPOSIT)
+                (widget.entry.transactionType == TransactionType.DEPOSIT && widget.entry.statementType == StatementType.ASSET ||
+                    widget.entry.transactionType == TransactionType.WITHDRAWAL && widget.entry.statementType == StatementType.LIABILITY)
                     ? '+ ${NumberFormat.simpleCurrency().format(widget.entry.amount)}'
                     : '- ${NumberFormat.simpleCurrency().format(widget.entry.amount)}',
-                style: TextStyle(fontSize: 14, color: (widget.entry.transactionType == TransactionType.DEPOSIT)
-                    ? Colors.greenAccent
-                    : Colors.redAccent),
+                style: TextStyle(fontSize: 14,
+                    color: (widget.entry.transactionType == TransactionType.DEPOSIT && widget.entry.statementType == StatementType.ASSET ||
+                        widget.entry.transactionType == TransactionType.WITHDRAWAL && widget.entry.statementType == StatementType.LIABILITY)
+                        ? Colors.greenAccent
+                        : Colors.redAccent),
               )
             ]),
           ),
