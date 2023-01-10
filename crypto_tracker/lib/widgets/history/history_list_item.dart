@@ -75,7 +75,8 @@ class _HistoryListItemState extends State<HistoryListItem> {
                   ],
                 ),
               ),
-              Text(
+              widget.show
+              ? Text(
                 (widget.entry.transactionType == TransactionType.DEPOSIT && widget.entry.statementType == StatementType.ASSET ||
                     widget.entry.transactionType == TransactionType.WITHDRAWAL && widget.entry.statementType == StatementType.LIABILITY)
                     ? '+ ${NumberFormat.simpleCurrency().format(widget.entry.amount)}'
@@ -86,6 +87,7 @@ class _HistoryListItemState extends State<HistoryListItem> {
                         ? Colors.greenAccent
                         : Colors.redAccent),
               )
+                  : Text('\u2731' * 4)
             ]),
           ),
         ),

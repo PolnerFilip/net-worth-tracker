@@ -16,7 +16,7 @@ class TransactionModel {
   TransactionType transactionType;
   String description;
   double? cryptoQuantity;
-  CryptoAsset? cryptoAsset;
+  String? cryptoAsset;
 
   TransactionModel(
       {this.id,
@@ -38,7 +38,7 @@ class TransactionModel {
       "transactionType": EnumToString.convertToString(transactionType),
       "statementType": EnumToString.convertToString(statementType),
       "cryptoQuantity": cryptoQuantity,
-      "cryptoAsset": cryptoAsset.toString()
+      "cryptoAsset": cryptoAsset ?? "null"
     };
   }
 
@@ -51,6 +51,9 @@ class TransactionModel {
         assetType: data?['statementType'] == 'ASSET' ? EnumToString.fromString(AssetType.values, data?['assetType'] ?? AssetType.CASH) : EnumToString.fromString(LiabilityType.values, data?['assetType'] ?? LiabilityType.STUDENT_LOAN),
         amount: data?['amount'].toDouble(),
         transactionType: EnumToString.fromString(TransactionType.values, data?['transactionType']) ?? TransactionType.DEPOSIT,
-        statementType: EnumToString.fromString(StatementType.values, data?['statementType']) ?? StatementType.ASSET);
+        statementType: EnumToString.fromString(StatementType.values, data?['statementType']) ?? StatementType.ASSET,
+        cryptoAsset: data?['cryptoAsset'],
+        cryptoQuantity: data?['cryptoQuantity'] != null ? data!['cryptoQuantity'].toDouble() : null
+    );
   }
 }

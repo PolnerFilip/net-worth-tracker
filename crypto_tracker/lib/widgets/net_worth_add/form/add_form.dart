@@ -11,6 +11,7 @@ import 'package:crypto_tracker/widgets/net_worth_add/form/crypto_field/crypto_in
 import 'package:crypto_tracker/widgets/net_worth_add/form/date_selector.dart';
 import 'package:crypto_tracker/widgets/net_worth_add/form/description_field.dart';
 import 'package:crypto_tracker/widgets/net_worth_add/toggle.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -91,10 +92,11 @@ class _AddFormState extends State<AddForm> {
             amount: _amount,
             transactionType: TransactionType.DEPOSIT,
             statementType: _statementType,
-            cryptoAsset: _cryptoAsset,
+            cryptoAsset: _cryptoAsset.toString(),
             cryptoQuantity: _cryptoQuantity == 0 ? null : _cryptoQuantity
         ),
         _userRepository.userId ?? '');
+        serviceLocator<UserRepository>().getUserWithTransactions(FirebaseAuth.instance.currentUser?.email ?? "");
   }
 
   @override
@@ -109,8 +111,8 @@ class _AddFormState extends State<AddForm> {
             Padding(
               padding: const EdgeInsets.only(top: 40),
               child:
-              _assetType == AssetType.CRYPTOCURRENCY
-                  ? CryptoInput(assetCallback: _setCryptoAsset, quantityCallback: _setCryptoQuantity, cryptoAsset: _cryptoAsset,)
+              _assetType == AssetType.CRYPTOCURRENCY && _statementType == StatementType.ASSET
+                  ? CryptoInput(assetCallback: _setCryptoAsset, quantityCallback: _setCryptoQuantity, cryptoAsset: _cryptoAsset, isWithdrawal: false)
                   : AmountInput(callback: _setAmount),
             ),
             Padding(
@@ -136,8 +138,8 @@ class _AddFormState extends State<AddForm> {
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                         _saveToDatabase();
+                        Navigator.of(context).pop();
                     }
-                    Navigator.of(context).pop();
                   },
                   child: const Text('Add'),
                 ),

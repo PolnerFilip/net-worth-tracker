@@ -24,7 +24,7 @@ class TipCarousel extends StatelessWidget {
       children: [
         Center(
           child: Container(
-            margin: const EdgeInsets.only(top: 120),
+            margin: const EdgeInsets.only(top: 50),
             child: Column(
               children: [
                 CarouselSlider(
