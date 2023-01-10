@@ -1,3 +1,4 @@
+import 'package:crypto_tracker/network/repositories/transaction_repository.dart';
 import 'package:crypto_tracker/services/crypto_service.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +11,12 @@ import '../../../../models/crypto_asset.dart';
 class CryptoSelector extends StatefulWidget {
   const CryptoSelector({
     Key? key,
-    required this.callback
+    required this.callback,
+    required this.isWithdrawal
   }) : super(key: key);
 
   final Function callback;
+  final bool isWithdrawal;
 
   @override
   State<CryptoSelector> createState() => _CryptoSelectorState();
@@ -25,17 +28,23 @@ class _CryptoSelectorState extends State<CryptoSelector> {
 
   @override
   void initState() {
-    getCryptos();
+    widget.isWithdrawal ? _getUserCryptos() : _getAllCryptos();
     super.initState();
   }
 
-  void getCryptos() async {
+  void _getAllCryptos() async {
     cryptoAssets =
     CryptoService.cryptoAssets.isEmpty
         ? await CryptoService.instance.getCryptoAssets()
         : CryptoService.cryptoAssets;
     setState(() {});
     print(cryptoAssets[0].image);
+  }
+
+  void _getUserCryptos() {
+    cryptoAssets = CryptoService.instance.getUserCryptos();
+    print('ASSETS');
+    print(cryptoAssets);
   }
 
   @override

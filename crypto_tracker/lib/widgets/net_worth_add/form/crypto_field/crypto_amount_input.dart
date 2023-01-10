@@ -6,10 +6,12 @@ import 'package:sizer/sizer.dart';
 import '../../../../core/res/color.dart';
 
 class CryptoAmountInput extends StatefulWidget {
-  const CryptoAmountInput({Key? key, required this.callback, required this.enabled}) : super(key: key);
+  const CryptoAmountInput({Key? key, required this.callback, required this.enabled, this.userHoldings, required this.isWithdrawal}) : super(key: key);
 
   final Function callback;
   final bool enabled;
+  final double? userHoldings;
+  final bool isWithdrawal;
 
   @override
   State<CryptoAmountInput> createState() => _CryptoAmountInputState();
@@ -52,8 +54,15 @@ class _CryptoAmountInputState extends State<CryptoAmountInput> {
                 LengthLimitingTextInputFormatter(7),
               ],
               validator: (value) {
+                print("VALIDATOR value: " + value.toString());
                 if (value == null || value.isEmpty) {
                   return 'Please enter an amount';
+                }
+                // if user holdings is null then it's deposit
+                if (widget.isWithdrawal) {
+                  if (double.parse(value) > widget.userHoldings!) {
+                    return "You don't own that much";
+                  }
                 }
                 return null;
               },

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:crypto_tracker/network/repositories/transaction_repository.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 
@@ -29,5 +30,24 @@ class CryptoService {
       print(error.toString());
     }
     return cryptoAssets;
+  }
+
+  CryptoAsset getCryptoFromSymbol(String symbol) {
+    print("Symbol:" + symbol.toLowerCase());
+    return cryptoAssets.firstWhere((element) => element.symbol == symbol.toLowerCase());
+  }
+
+  List<CryptoAsset> getUserCryptos() {
+    Map<String, double> userCryptos = TransactionRepository().getCryptoQuantities();
+    List<CryptoAsset> assets = [];
+    for (String key in userCryptos.keys) {
+      assets.add(getCryptoFromSymbol(key));
+    }
+    return assets;
+  }
+
+  double getCryptoHolding(CryptoAsset asset) {
+    Map<String, double> holdings = TransactionRepository().getCryptoQuantities();
+    return holdings[asset.symbol.toUpperCase()]!;
   }
 }

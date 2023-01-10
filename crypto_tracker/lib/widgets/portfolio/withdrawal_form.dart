@@ -1,5 +1,6 @@
 import 'package:crypto_tracker/core/res/color.dart';
 import 'package:crypto_tracker/models/asset_type.dart';
+import 'package:crypto_tracker/models/crypto_asset.dart';
 import 'package:crypto_tracker/models/liability_type.dart';
 import 'package:crypto_tracker/models/statement_type.dart';
 import 'package:crypto_tracker/models/transaction.dart';
@@ -11,8 +12,11 @@ import 'package:crypto_tracker/services/liability_observer.dart';
 import 'package:crypto_tracker/services/service_locator.dart';
 import 'package:crypto_tracker/widgets/net_worth_add/form/amount_input.dart';
 import 'package:crypto_tracker/widgets/net_worth_add/form/asset_type_dropdown.dart';
+import 'package:crypto_tracker/widgets/net_worth_add/form/crypto_field/crypto_amount_input.dart';
+import 'package:crypto_tracker/widgets/net_worth_add/form/crypto_field/crypto_input.dart';
 import 'package:crypto_tracker/widgets/net_worth_add/form/date_selector.dart';
 import 'package:crypto_tracker/widgets/net_worth_add/form/description_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
@@ -35,6 +39,8 @@ class _WithdrawFormState extends State<WithdrawForm> {
   late dynamic _assetType;
   late double _currentHolding;
   late String _assetTypeName;
+  CryptoAsset? _cryptoAsset;
+  double _cryptoQuantity = 0;
   double _amount = 0;
   DateTime _date = DateTime.now();
   String _description = '';
@@ -52,6 +58,7 @@ class _WithdrawFormState extends State<WithdrawForm> {
       _currentHolding = LiabilityObserver.instance.specificLiabilityAmounts[_assetTypeName]!;
     }
     super.initState();
+    TransactionRepository().getCryptoQuantities();
   }
 
   void _setAmount(double amount) {
@@ -72,6 +79,19 @@ class _WithdrawFormState extends State<WithdrawForm> {
     });
   }
 
+  void _setCryptoAsset(CryptoAsset cryptoAsset) {
+    setState(() {
+      _cryptoAsset = cryptoAsset;
+    });
+  }
+
+  void _setCryptoQuantity(double quantity) {
+    setState(() {
+      _cryptoQuantity = quantity;
+      _amount = _cryptoQuantity * _cryptoAsset!.currentPrice;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -87,7 +107,9 @@ class _WithdrawFormState extends State<WithdrawForm> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20),
-              child: AmountInput(callback: _setAmount),
+              child: widget.assetType != AssetType.CRYPTOCURRENCY
+                ? AmountInput(callback: _setAmount)
+                : CryptoInput(assetCallback: _setCryptoAsset, quantityCallback: _setCryptoQuantity, isWithdrawal: true),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10),
@@ -114,16 +136,21 @@ class _WithdrawFormState extends State<WithdrawForm> {
                       print("Error");
                     } else {
                       if (_formKey.currentState!.validate()) {
+                        print('${_cryptoQuantity}, ${_cryptoAsset?.symbol ?? "null"}');
                         await _transactionRepository.createTransaction(
                             TransactionModel(
                                 timestamp: _date,
                                 assetType: _assetType,
                                 amount: _amount,
                                 transactionType: TransactionType.WITHDRAWAL,
-                                statementType: widget.statementType),
+                                statementType: widget.statementType,
+                                cryptoAsset: _cryptoAsset?.symbol.toUpperCase() ?? "null",
+                                cryptoQuantity: _cryptoQuantity
+                            ),
                             _userRepository.userId ?? '');
+                        serviceLocator<UserRepository>().getUserWithTransactions(FirebaseAuth.instance.currentUser?.email ?? "");
+                        Navigator.of(context).pop();
                       }
-                      Navigator.of(context).pop();
                     }
                   },
                   child: const Text('Withdraw'),
