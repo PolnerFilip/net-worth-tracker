@@ -22,6 +22,7 @@ class CryptoService {
       final response = await http.get(url);
       List<dynamic> completions = jsonDecode(response.body);
       for (dynamic asset in completions) {
+        print(Map.from(asset)['current_price'] is int);
         CryptoAsset newAsset = CryptoAsset.fromJson(Map.from(asset));
         // print(newAsset.id);
         cryptoAssets.add(newAsset);
@@ -29,6 +30,7 @@ class CryptoService {
     } catch (error) {
       print(error.toString());
     }
+    print(cryptoAssets);
     return cryptoAssets;
   }
 

@@ -18,7 +18,7 @@ class CryptoAsset {
         symbol: json['symbol'],
         name: json['name'],
         image: json['image'],
-        currentPrice: json['current_price']
+        currentPrice: json['current_price'] is double ? json['current_price'] : json['current_price'].toDouble()
     );
   }
 
